@@ -4,11 +4,11 @@ The C Programming Style Guide
 Functions
 ---------
 
-*	My eyes are not so great, and I've found that spacing them extensively is nice. E.G.
+*	My eyes are not so great, and I've found that spacing functions extensively is easier to read. E.G.
 
 		printf( "hello\n" );
 
-*	I also like to be consistent, so I treat all functions this way, even the control functions. E.G.
+*	I also like consistency, so I treat all functions the same way, even the control functions. E.G.
 
 		if( x == 1 )
 
@@ -16,19 +16,19 @@ Functions
 
 		if( ( c = getc() ) != EOF )
 
-	It looks bad, but I'm still waiting on figuring out a better way to write this out.
+	It looks bad, but I've yet to work out something better.
 
 Control Functions
 -----------------
 
-*	'if', 'when', etc. are all functions, and should be written as such, per the funtion section. (I know many people treat them stylistically as if they were different.)
+*	'if', 'when', etc. are all functions, and should be written as such, per the funtion style guide. (I know many people treat them stylistically as if they were different.)
 
 *	Control functions one-liners should be split into two lines. E.G.
 
 		if( x == 1 )
 			printf( "x == 1, yay!\n" );
 
-	This way the concept of the conditional is uncoupled from the concept of the consequent.
+	This way the concept of the conditional is decoupled from the concept of the consequent.
 
 *	Control functions multi-liners should use curly braces something like the following:
 
@@ -51,4 +51,4 @@ Variable Declarations
 
 		char* c;
 
-	The thinking is that the variable is of type pointer to a type.
+	The thinking is that the variable is of type pointer.
