@@ -1,0 +1,54 @@
+The C Programming Style Guide
+=============================
+
+Functions
+---------
+
+*	My eyes are not so great, and I've found that spacing them extensively is nice. E.G.
+
+		printf( "hello\n" );
+
+*	I also like to be consistent, so I treat all functions this way, even the control functions. E.G.
+
+		if( x == 1 )
+
+*	Something I am unhappy about is nested parentheses. E.G.
+
+		if( ( c = getc() ) != EOF )
+
+	It looks bad, but I'm still waiting on figuring out a better way to write this out.
+
+Control Functions
+-----------------
+
+*	'if', 'when', etc. are all functions, and should be written as such, per the funtion section. (I know many people treat them stylistically as if they were different.)
+
+*	Control functions one-liners should be split into two lines. E.G.
+
+		if( x == 1 )
+			printf( "x == 1, yay!\n" );
+
+	This way the concept of the conditional is uncoupled from the concept of the consequent.
+
+*	Control functions multi-liners should use curly braces something like the following:
+
+		if( x == 1 )
+		{
+			printf( "x == 1, yay!\n" );
+			printf( "I am so bored...!\n" );
+		}
+
+	This allows the body of the control functions to be grouped logically, and without the control function call melting into the first line of the body.
+
+Variable Declarations
+---------------------
+
+*	Pointers should be declared in the form of
+
+		type* var;
+
+	For example:
+
+		char* c;
+
+	The thinking is that the variable is of type pointer to a type.
