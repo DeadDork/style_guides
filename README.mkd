@@ -1,0 +1,11 @@
+Programming Style Guides
+========================
+
+Style guides for languages that I use.
+
+Background
+----------
+
+Many languages give the programmer a great deal of freedom to design her code in any which way she likes. As a person with an interest in art and design, I am always thinking about how to structure my code.
+
+The markdown files in this repo represent my current thinking for a particular language.
