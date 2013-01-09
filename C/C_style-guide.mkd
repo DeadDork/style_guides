@@ -16,12 +16,16 @@ Functions
 
 		if( ( c = getc() ) != EOF )
 
-	It looks bad, but I've yet to work out something better.
+	It looks bad. I think that the following looks much better:
+
+		x = pow(2, 3);
+
+	However, my eyesight isn't very good, and I've found that it's easier to notice errors when there is plenty of spacing. It's ugly, sure, but utility wins out in this case.
 
 Control Functions
 -----------------
 
-*	'if', 'when', etc. are all functions, and should be written as such, per the funtion style guide. (I know many people treat them stylistically as if they were different.)
+*	*if*, *when*, etc. are all functions, and should be written as such, per the funtion style guide. (I know many people treat them stylistically as if they were different.)
 
 *	Control functions one-liners should be split into two lines. E.G.
 
@@ -40,15 +44,30 @@ Control Functions
 
 	This allows the body of the control functions to be grouped logically, and without the control function call melting into the first line of the body.
 
+*	The *else* function follows this convention, too. E.G.:
+
+		if( x == 1 )
+		{
+			printf( "x == 1, yay!\n" );
+			printf( "I am so bored...!\n" );
+		}
+		else
+		{
+			printf( "x != 1, booo...\n" );
+			printf( "I am still bored...!\n" );
+		}
+
+		Putting the *else* between the two curly braces (i.e. '} else {') seems to put undue separation between the if-true clause and the if-false clause. I'll admit that it does. However, I often use *else if*, in which case the condition suffers from bleed into both the true consequent block & the false consequent block--which is why I use the form above.
+
 Variable Declarations
 ---------------------
 
 *	Pointers should be declared in the form of
 
-		type* var;
+		type *var;
 
 	For example:
 
-		char* c;
+		char *c;
 
-	The thinking is that the variable is of type pointer.
+	This is to make it so that several pointer variable can be declared in one line. Even though I believe that the 'type* var' form makes more sense, it doesn't let you declare multiple pointer variables in a single line--and thus style is trumped by functionality yet again.
