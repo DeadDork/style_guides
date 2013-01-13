@@ -35,7 +35,7 @@ Control Functions
 
 *	*if*, *when*, etc. are all functions, and should be written as such, per the funtion style guide. (I know many people treat them stylistically as if they were different.)
 
-*	Control functions one-liners should be treated as multi-liners. That is, instead of following the K & R style, and do something like the following:
+*	Control functions one-liners should be treated as multi-liners. That is, here is the K & R style:
 
 	```c
 	if( x == 1 )
@@ -86,7 +86,7 @@ Control Functions
 	}
 	```
 
-		Putting the *else* between the two curly braces (i.e. '} else {') seems to put undue separation between the if-true clause and the if-false clause. I'll admit that it does. However, I often use *else if*, in which case the condition suffers from bleed into both the true consequent block & the false consequent block--which is why I use the form above.
+	Putting the *else* between the two curly braces (i.e. '} else {') seems to put undue separation between the if-true clause and the if-false clause. I'll admit that it does. However, I often use *else if*, in which case the condition suffers from bleed into both the true consequent block & the false consequent block--which is why I use the form above.
 
 Variable Declarations
 ---------------------
@@ -151,11 +151,12 @@ Comments
 	printf( "%s\n", s );
 	```
 
-*	Header files should have a thorough description of the function, encased in multi-line comment demarcators, right below the function prototype. E.G.:
+*	Function prototypes--especially as they appear in header files--should have a thorough description of the function, encased in multi-line comment demarcators, right below the function prototype. E.G.:
 
 	```c
-	void threeprint( char *s )
+	void reprint( char *s, int i )
 	/* Prints a string three times.
 
-	   *s* = A pointer to a string. */
+	   *s* = A pointer to a string.
+	   *i* = The number of time to print. */
 	```
