@@ -37,54 +37,54 @@ Control Functions
 
 *	Control functions one-liners should be treated as multi-liners. That is, instead of following the K & R style, and do something like the following:
 
-```c
-if( x == 1 )
-	printf( "x == 1, yay!\n" );
-```
+	```c
+	if( x == 1 )
+		printf( "x == 1, yay!\n" );
+	```
 
 	I have found that it is better to add curly braces, per the following:
 
-```c
-if( x == 1 )
-{
-	printf( "x == 1, yay!\n" );
-}
-```
+	```c
+	if( x == 1 )
+	{
+		printf( "x == 1, yay!\n" );
+	}
+	```
 
 	I will readily admit that the former style looks better, but I've found that the latter is less error-prone when adding further lines to the consequent clause. Again, utility wins against beauty!
 
 	One exception is the *for* function that just increments according to a condtion. In such cases, it should be a **real** one-liner:
 
-```c
-for( i = 0; s[ i ] != '\0' && s[ i ] != '\n'; ++i );
-```
+	```c
+	for( i = 0; s[ i ] != '\0' && s[ i ] != '\n'; ++i );
+	```
 
 *	Control functions multi-liners should use curly braces something like the following:
 
-```c
-if( x == 1 )
-{
-	printf( "x == 1, yay!\n" );
-	printf( "I am so bored...!\n" );
-}
-```
+	```c
+	if( x == 1 )
+	{
+		printf( "x == 1, yay!\n" );
+		printf( "I am so bored...!\n" );
+	}
+	```
 
 	This allows the body of the control functions to be grouped logically, and without the control function call melting into the first line of the body. However, this makes for an overall more consistent style.
 
 *	The *else* function follows this convention, too. E.G.:
 
-```c
-if( x == 1 )
-{
-	printf( "x == 1, yay!\n" );
-	printf( "I am so bored...!\n" );
-}
-else
-{
-	printf( "x != 1, booo...\n" );
-	printf( "I am still bored...!\n" );
-}
-```
+	```c
+	if( x == 1 )
+	{
+		printf( "x == 1, yay!\n" );
+		printf( "I am so bored...!\n" );
+	}
+	else
+	{
+		printf( "x != 1, booo...\n" );
+		printf( "I am still bored...!\n" );
+	}
+	```
 
 		Putting the *else* between the two curly braces (i.e. '} else {') seems to put undue separation between the if-true clause and the if-false clause. I'll admit that it does. However, I often use *else if*, in which case the condition suffers from bleed into both the true consequent block & the false consequent block--which is why I use the form above.
 
@@ -93,15 +93,15 @@ Variable Declarations
 
 *	Pointers should be declared in the form of
 
-```c
-type *var;
-```
+	```c
+	type *var;
+	```
 
 	For example:
 
-```c
-char *c;
-```
+	```c
+	char *c;
+	```
 
 	This is to make it so that several pointer variable can be declared in one line. Even though I believe that the 'type* var' form makes more sense, it doesn't let you declare multiple pointer variables in a single line--and thus style is trumped by functionality yet again.
 
@@ -119,43 +119,43 @@ Comments
 
 *	Sections are demarcated by 80 /'s, followed by a commented section name and a blank line. E.G.:
 
-```C
-////////////////////////////////////////////////////////////////////////////////
-// Comments
+	```C
+	////////////////////////////////////////////////////////////////////////////////
+	// Comments
 
-// This is the first item in this section
-```
+	// This is the first item in this section
+	```
 
 *	Comments in the comments section should be separate by at least one line break. If they are sufficiently decoupled, two. Both should be commented out with a //.
 
-```C
-////////////////////////////////////////////////////////////////////////////////
-// Comments
+	```C
+	////////////////////////////////////////////////////////////////////////////////
+	// Comments
 
-// This is a dummy comment section.
+	// This is a dummy comment section.
 
-// I feel like a dummy...
-```
+	// I feel like a dummy...
+	```
 
 *	Comments that only refer to one line should be placed to the right of the code, and commented out with //. E.G.:
 
-```c
-free( s ); // I'm not sure that this is necessary to do for a program that's not looping.
-```
+	```c
+	free( s ); // I'm not sure that this is necessary to do for a program that's not looping.
+	```
 
 *	Code block description comments should be encased by multi-line comment demarcators, e.g.:
 
-```c
-/* Prints 'Hello, world' */
-char s[] = "Hello, world\n";
-printf( "%s\n", s );
-```
+	```c
+	/* Prints 'Hello, world' */
+	char s[] = "Hello, world\n";
+	printf( "%s\n", s );
+	```
 
 *	Header files should have a thorough description of the function, encased in multi-line comment demarcators, right below the function prototype. E.G.:
 
-```c
-void threeprint( char *s )
-/* Prints a string three times.
+	```c
+	void threeprint( char *s )
+	/* Prints a string three times.
 
-   *s* = A pointer to a string. */
-```
+	   *s* = A pointer to a string. */
+	```
