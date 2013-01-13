@@ -41,6 +41,10 @@ Control Functions
 
 	I will readily admit that the former style looks better, but I've found that the latter is less error-prone when adding further lines to the consequent clause. Again, utility wins against beauty!
 
+	One exception is the *for* function that just increments according to a condtion. In such cases, it should be a **real** one-liner:
+
+		for( i = 0; s[ i ] != '\0' && s[ i ] != '\n'; ++i );
+
 *	Control functions multi-liners should use curly braces something like the following:
 
 		if( x == 1 )
