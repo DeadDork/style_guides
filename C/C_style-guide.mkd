@@ -119,43 +119,43 @@ Comments
 
 *	Sections are demarcated by 80 /'s, followed by a commented section name and a blank line. E.G.:
 
-		```C
-		////////////////////////////////////////////////////////////////////////////////
-		// Comments
+```C
+////////////////////////////////////////////////////////////////////////////////
+// Comments
 
-		// This is the first item in this section
-		```
+// This is the first item in this section
+```
 
 *	Comments in the comments section should be separate by at least one line break. If they are sufficiently decoupled, two. Both should be commented out with a //.
 
-		```C
-		////////////////////////////////////////////////////////////////////////////////
-		// Comments
+```C
+////////////////////////////////////////////////////////////////////////////////
+// Comments
 
-		// This is a dummy comment section.
+// This is a dummy comment section.
 
-		// I feel like a dummy...
-		```
+// I feel like a dummy...
+```
 
 *	Comments that only refer to one line should be placed to the right of the code, and commented out with //. E.G.:
 
-		```c
-		free( s ); // I'm not sure that this is necessary to do for a program that's not looping.
-		```
+```c
+free( s ); // I'm not sure that this is necessary to do for a program that's not looping.
+```
 
 *	Code block description comments should be encased by multi-line comment demarcators, e.g.:
 
-		```c
-		/* Prints 'Hello, world' */
-		char s[] = "Hello, world\n";
-		printf( "%s\n", s );
-		```
+```c
+/* Prints 'Hello, world' */
+char s[] = "Hello, world\n";
+printf( "%s\n", s );
+```
 
 *	Header files should have a thorough description of the function, encased in multi-line comment demarcators, right below the function prototype. E.G.:
 
-		```c
-		void threeprint( char *s )
-		/* Prints a string three times.
+```c
+void threeprint( char *s )
+/* Prints a string three times.
 
-		   *s* = A pointer to a string. */
-		```
+   *s* = A pointer to a string. */
+```
