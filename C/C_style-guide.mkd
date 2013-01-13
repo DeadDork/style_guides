@@ -5,21 +5,29 @@ Functions
 ---------
 
 *	My eyes are not so great, and I've found that spacing functions extensively is easier to read. E.G.
-```c
-printf( "hello\n" );
-```
+
+	```c
+	printf( "hello\n" );
+	```
+
 *	I also like consistency, so I treat all functions the same way, even the control functions. E.G.
-```c
-if( x == 1 )
-```
+
+	```c
+	if( x == 1 )
+	```
+
 *	Something I am unhappy about is nested parentheses. E.G.
-```c
-x = pow( 2, 3 );
-```
+
+	```c
+	x = pow( 2, 3 );
+	```
+
 	It looks bad. It's also a pain to maintain, as it's easy to forget to space correctly. I think that the following looks much better:
-```c
-x = pow(2, 3);
-```
+
+	```c
+	x = pow(2, 3);
+	```
+
 	However, my eyesight isn't very good, and I've found that it's easier to notice errors when there is plenty of spacing. It's ugly, sure, but utility wins out in this case. It's close, though. I could easily switch after I've had some more experience.
 
 Control Functions
