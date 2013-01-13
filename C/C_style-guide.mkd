@@ -169,3 +169,21 @@ Comments
 	   *s* = A pointer to a string.
 	   *i* = The number of time to print. */
 	```
+
+Organization
+------------
+
+*	Small, single-file programs are organized accordingly:
+	1.	Comments
+	2.	Libraries
+	3.	Symbolic Constants
+	4.	Macros
+	5.	Functional Prototypes
+	6.	Functions
+	7.	Main
+
+*	Large, multi-file programs are organized accordingly:
+	*	Each file is given a *Comments* section.
+	*	Header files with Symbolic Constants, Macros, and Functional Prototypes (and occasionally also any relevant libraries).
+	*	Function files with Functions and any relevant Libraries.
+	*	A main file with the main function and any relevant Libraries.
