@@ -126,6 +126,15 @@ Comments
 	// This is the first item in this section
 	```
 
+*	The *main* section is special, in that it only has the horizontal "bar". E.G.:
+
+	```C
+	////////////////////////////////////////////////////////////////////////////////
+	int main()
+	{
+		printf( "Wut?!\n" );
+	```
+
 *	Comments in the comments section should be separate by at least one line break. If they are sufficiently decoupled, two. Both should be commented out with a //.
 
 	```C
