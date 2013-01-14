@@ -19,13 +19,13 @@ Functions
 *	Something I am unhappy about is nested parentheses. E.G.
 
 	```c
-	printf( pow( 2, 3 ) );
+	printf( "%d\n",  pow( 2, 3 ) );
 	```
 
 	It looks bad. It's also a pain to maintain, as it's easy to forget to space correctly. I think that the following looks much better:
 
 	```c
-	x = pow(2, 3);
+	printf("%d\n", pow(2, 3));
 	```
 
 	However, like I said, my eyesight isn't very good, and I've found that it's easier to notice errors when there is plenty of spacing. It's ugly, sure, but utility wins out in this case. It's close, though. I could easily switch sometime in the future.
