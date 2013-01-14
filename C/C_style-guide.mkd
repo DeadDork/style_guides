@@ -19,7 +19,7 @@ Functions
 *	Something I am unhappy about is nested parentheses. E.G.
 
 	```c
-	x = pow( 2, 3 );
+	printf( pow( 2, 3 ) );
 	```
 
 	It looks bad. It's also a pain to maintain, as it's easy to forget to space correctly. I think that the following looks much better:
@@ -28,12 +28,41 @@ Functions
 	x = pow(2, 3);
 	```
 
-	However, my eyesight isn't very good, and I've found that it's easier to notice errors when there is plenty of spacing. It's ugly, sure, but utility wins out in this case. It's close, though. I could easily switch after I've had some more experience.
+	However, like I said, my eyesight isn't very good, and I've found that it's easier to notice errors when there is plenty of spacing. It's ugly, sure, but utility wins out in this case. It's close, though. I could easily switch sometime in the future.
 
 Control Functions
 -----------------
 
-*	*if*, *when*, etc. are all functions, and should be written as such, per the funtion style guide. (I know many people treat them stylistically as if they were different.)
+*	Control functions multi-liners should use curly braces something like the following:
+
+	```c
+	if( x == 1 )
+	{
+		printf( "x == 1, yay!\n" );
+		printf( "I am so bored...!\n" );
+	}
+	```
+
+	This allows the body of the control functions to be grouped logically, and without the control function call melting into the first line of the body. Also, this makes for an overall more consistent style.
+
+*	The *else* function follows this convention, too. E.G.:
+
+	```c
+	if( x == 1 )
+	{
+		printf( "x == 1, yay!\n" );
+		printf( "I am so bored...!\n" );
+	}
+	else
+	{
+		printf( "x != 1, booo...\n" );
+		printf( "I am still bored...!\n" );
+	}
+	```
+
+	Putting the *else* between the two curly braces (i.e. '} else {') seems to put undue separation between the if-true clause and the if-false clause. I'll admit that it does. However, I often use *else if*, in which case the condition suffers from bleed into both the true consequent block & the false consequent block--which is why I use the form above.
+
+*	*if*, *when*, etc. are all functions, and should be written as such, per the __functions__ style guide. (I know many people treat them stylistically as if they were different.)
 
 *	Control functions one-liners should be treated as multi-liners. That is, here is the K & R style:
 
@@ -53,40 +82,11 @@ Control Functions
 
 	I will readily admit that the former style looks better, but I've found that the latter is less error-prone when adding further lines to the consequent clause. Again, utility wins against beauty!
 
-	One exception is the *for* function that just increments according to a condtion. In such cases, it should be a **real** one-liner:
+	One exception is a loop function that just increments according to a condtion. In such cases, it should be a **real** one-liner:
 
 	```c
 	for( i = 0; s[ i ] != '\0' && s[ i ] != '\n'; ++i );
 	```
-
-*	Control functions multi-liners should use curly braces something like the following:
-
-	```c
-	if( x == 1 )
-	{
-		printf( "x == 1, yay!\n" );
-		printf( "I am so bored...!\n" );
-	}
-	```
-
-	This allows the body of the control functions to be grouped logically, and without the control function call melting into the first line of the body. However, this makes for an overall more consistent style.
-
-*	The *else* function follows this convention, too. E.G.:
-
-	```c
-	if( x == 1 )
-	{
-		printf( "x == 1, yay!\n" );
-		printf( "I am so bored...!\n" );
-	}
-	else
-	{
-		printf( "x != 1, booo...\n" );
-		printf( "I am still bored...!\n" );
-	}
-	```
-
-	Putting the *else* between the two curly braces (i.e. '} else {') seems to put undue separation between the if-true clause and the if-false clause. I'll admit that it does. However, I often use *else if*, in which case the condition suffers from bleed into both the true consequent block & the false consequent block--which is why I use the form above.
 
 Variable Declarations
 ---------------------
@@ -183,7 +183,7 @@ Organization
 	7.	Main
 
 *	Large, multi-file programs are organized accordingly:
-	*	Each file is given a *Comments* section.
-	*	Header files with Symbolic Constants, Macros, and Functional Prototypes (and occasionally also any relevant libraries).
-	*	Function files with Functions and any relevant Libraries.
-	*	A main file with the main function and any relevant Libraries.
+	*	Each file gets a *Comments* section.
+	*	Header files get the Symbolic Constants, Macros, and Functional Prototypes (and occasionally also any relevant *#include*'s).
+	*	Function files get Functions and any *#include*'s.
+	*	A main file gets the main function and any relevant *#include*'s.
