@@ -4,7 +4,7 @@ The C Programming Style Guide
 TL;DR
 -----
 
-Below is some pseudo program code that demonstrates my C style (for more detail, read the rest of the guide):
+Below is a simple program that demonstrates my C style (for more detail, read the rest of the guide):
 
 ```c
 ////////////////////////////////////////////////////////////////////////////////
