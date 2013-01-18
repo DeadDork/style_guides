@@ -133,7 +133,7 @@ Control Functions
 	}
 	```
 
-	The usual convention looks better (e.g. '} else {'), mostly because my style seems to put undue separation between the if-true clause and the if-false clause. However, I often use `else if`, in which case the `else if` condition suffers from bleed into both the true consequent block & the false consequent block--which is why I use the form above.
+	The usual convention looks better (e.g. '} else {'), mostly because my style seems to put undue separation between the if-true clause and the if-false clause. However, I often use `else if`, in which case the the usual convention produces an `else if` condition that bleeds into both the true consequent block & the false consequent block--which is why I use the form above.
 
 *	`if`, `when`, etc. are all functions, and should be written as such, per the __functions__ style guide. (I know many people treat them stylistically as if they were different.)
 
