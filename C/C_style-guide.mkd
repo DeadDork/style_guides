@@ -89,7 +89,7 @@ Functions
 	if( x == 1 )
 	```
 
-*	Something I am unhappy about is nested parentheses. E.G.
+*	Something I am unhappy about is how this style looks with nested parentheses. E.G.
 
 	```c
 	printf( "%d\n",  pow( 2, 3 ) );
@@ -106,7 +106,7 @@ Functions
 Control Functions
 -----------------
 
-*	Control functions multi-liners should use curly braces something like the following:
+*	Control functions multi-liners should use curly braces, per the following:
 
 	```c
 	if( x == 1 )
@@ -118,7 +118,7 @@ Control Functions
 
 	This allows the body of the control functions to be grouped logically, and without the control function call melting into the first line of the body. Also, this makes for an overall more consistent style.
 
-*	The *else* function follows this convention, too. E.G.:
+*	The `else` function follows this convention, too. E.G.:
 
 	```c
 	if( x == 1 )
@@ -133,9 +133,9 @@ Control Functions
 	}
 	```
 
-	Putting the *else* between the two curly braces (i.e. '} else {') seems to put undue separation between the if-true clause and the if-false clause. I'll admit that it does. However, I often use *else if*, in which case the condition suffers from bleed into both the true consequent block & the false consequent block--which is why I use the form above.
+	The usual convention looks better (e.g. '} else {'), mostly because my style seems to put undue separation between the if-true clause and the if-false clause. However, I often use `else if`, in which case the `else if` condition suffers from bleed into both the true consequent block & the false consequent block--which is why I use the form above.
 
-*	*if*, *when*, etc. are all functions, and should be written as such, per the __functions__ style guide. (I know many people treat them stylistically as if they were different.)
+*	`if`, `when`, etc. are all functions, and should be written as such, per the __functions__ style guide. (I know many people treat them stylistically as if they were different.)
 
 *	Control functions one-liners should be treated as multi-liners. That is, here is the K & R style:
 
@@ -176,7 +176,7 @@ Variable Declarations
 	char *c;
 	```
 
-	This is to make it so that several pointer variable can be declared in one line. Even though I believe that the 'type* var' form makes more sense, it doesn't let you declare multiple pointer variables in a single line--and thus style is trumped by functionality yet again.
+	This is to make it so that several pointer variables can be declared in one line. Even though I believe that the 'type* var' form makes more sense (after all it's a variable that's of type pointer to a type, e.g. 'char* c' declares that 'c' is a variable that is of type pointer to a char), it doesn't let you declare multiple pointer variables in a single line--and thus style is trumped by functionality yet again.
 
 Comments
 --------
@@ -190,7 +190,7 @@ Comments
 	6.	Functions
 	7.	Main
 
-*	Sections are demarcated by 80 /'s, followed by a commented section name and a blank line. E.G.:
+*	Sections are demarcated by 80 `/`'s, followed by a commented section name and a blank line. E.G.:
 
 	```C
 	////////////////////////////////////////////////////////////////////////////////
@@ -199,7 +199,7 @@ Comments
 	// This is the first item in this section
 	```
 
-*	The *main* section is special, in that it only has the horizontal "bar". E.G.:
+*	The `main` section is special, in that it only has the horizontal "bar". E.G.:
 
 	```C
 	////////////////////////////////////////////////////////////////////////////////
@@ -208,7 +208,7 @@ Comments
 		printf( "Wut?!\n" );
 	```
 
-*	Comments in the comments section should be separate by at least one line break. If they are sufficiently decoupled, two. Both should be commented out with a //.
+*	Comments in the comments section should be separate by at least one line break. If they are sufficiently decoupled, two. Both should be commented out with a `//`.
 
 	```C
 	////////////////////////////////////////////////////////////////////////////////
@@ -219,7 +219,7 @@ Comments
 	// I feel like a dummy...
 	```
 
-*	Comments that only refer to one line should be placed to the right of the code, and commented out with //. E.G.:
+*	Comments that only refer to one line should be placed to the right of the code, and commented out with `//`. E.G.:
 
 	```c
 	free( s ); // I'm not sure that this is necessary to do for a program that's not looping.
@@ -237,7 +237,7 @@ Comments
 
 	```c
 	void reprint( char *s, int i )
-	/* Prints a string three times.
+	/* Prints a string multiple times to STDIN.
 
 	   *s* = A pointer to a string.
 	   *i* = The number of time to print. */
@@ -264,4 +264,4 @@ Organization
 Variable & Function Naming
 --------------------------
 
-Naming conventions have yet to be determined. C convention generally runs towards minimal length (e.g. 's' to indicate a char pointer to a string). I've toyed with going with the first letters of a short description separated by underscores (e.g. "dynamic string" = `d_s`). At other times, I've fallen back on the C convention. I'll update this section when I've sorted out my own position.
+Naming conventions have yet to be determined. C convention generally runs towards minimal length (e.g. 's' to indicate a char pointer to a string). I've toyed with going with the first letters of a short description separated by underscores (e.g. "dynamic string" = `d\_s`). At other times, I've fallen back on the C convention. I'll update this section when I've sorted out my own position.
