@@ -194,9 +194,10 @@ Comments
 	2.	Libraries
 	3.	Symbolic Constants
 	4.	Macros
-	5.	Function Prototypes
-	6.	Functions
-	7.	Main
+	5.	Structs
+	6.	Functional Prototypes
+	7.	Functions
+	8.	Main
 
 *	Sections are demarcated by 80 `/`'s, followed by a commented section name and a blank line. E.G.:
 
@@ -259,9 +260,10 @@ Organization
 	2.	Libraries
 	3.	Symbolic Constants
 	4.	Macros
-	5.	Functional Prototypes
-	6.	Functions
-	7.	Main
+	5.	Structs
+	6.	Functional Prototypes
+	7.	Functions
+	8.	Main
 
 *	Large, multi-file programs are organized accordingly:
 	*	Each file gets a *Comments* section.
