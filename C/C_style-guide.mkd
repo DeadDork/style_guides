@@ -167,16 +167,24 @@ Variable Declarations
 *	Pointers should be declared in the form of
 
 	```c
-	type *var;
+	type * var;
 	```
 
 	For example:
 
 	```c
-	char *c;
+	char * c;
 	```
 
-	This is to make it so that several pointer variables can be declared in one line. Even though I believe that the 'type* var' form makes more sense (after all it's a variable that's of type pointer to a type, e.g. 'char* c' declares that 'c' is a variable that is of type pointer to a char), it doesn't let you declare multiple pointer variables in a single line--and thus style is trumped by functionality yet again.
+	I have a number of reasons for this:
+	*	It can be read backwards, per the example above, as "c points to char", so is easy to remember.
+	*	This form actually makes sense (compare it to the K & R style).
+	*	The declaration of a pointer to type can easily be distinguished from dereferencing a variable.
+	*	It lends itself to declaring multiple variables on the same line, e.g.:
+
+		```c
+		char a, b, * c, * d, ** f;
+		```
 
 Comments
 --------
