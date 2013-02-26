@@ -32,10 +32,10 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 // Function Prototypes
 
 void print_test( int x, int y );
-/* Prints out x + y twice: 1) adding the two in the arguments of a normal `printf` 2) letting a macro do the "heavy" lifting.
+/* Prints out x + y twice: 1) adding the two in the arguments of a normal `printf` 2) letting a macro do the "heavy" lifting instead.
 
-   *x* = the first integer you are adding.
-   *y* = the second integer you are adding. */
+   `x` = the first integer you are adding.
+   `y` = the second integer you are adding. */
 
 ////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -49,7 +49,7 @@ void print_test( int x, int y )
 ////////////////////////////////////////////////////////////////////////////////
 int main()
 {
-	int *x, y; // I fully realize how silly it is to make x into a pointer.
+	int * x, y; // I fully realize how silly it is to make x into a pointer.
 
 	/* Sets x */
 	for( *x = 0; *x < 10; ++( *x ) );
@@ -64,6 +64,10 @@ int main()
 		else if( y >= 80 )
 		{
 			++y;
+		}
+		else if( y > 90 )
+		{
+			--y;
 		}
 	}
 
@@ -106,7 +110,7 @@ Functions
 Control Functions
 -----------------
 
-*	Control functions multi-liners should use curly braces, per the following:
+*	Control function multi-liners should use curly braces, per the following:
 
 	```c
 	if( x == 1 )
@@ -153,7 +157,7 @@ Control Functions
 	}
 	```
 
-	I will readily admit that the former style looks better, but I've found that the latter is less error-prone when adding further lines to the consequent clause. Again, utility wins against beauty!
+	I will readily admit that the former style looks better, but the latter is less error-prone when adding additional lines to the consequent clause. Again, utility wins against beauty.
 
 	One exception is a loop function that just increments according to a condtion. In such cases, it should be a **real** one-liner:
 
@@ -189,16 +193,6 @@ Variable Declarations
 Comments
 --------
 
-*	There are 7 possible sections:
-	1.	Comments
-	2.	Libraries
-	3.	Symbolic Constants
-	4.	Macros
-	5.	Structs
-	6.	Functional Prototypes
-	7.	Functions
-	8.	Main
-
 *	Sections are demarcated by 80 `/`'s, followed by a commented section name and a blank line. E.G.:
 
 	```C
@@ -231,7 +225,7 @@ Comments
 *	Comments that only refer to one line should be placed to the right of the code, and commented out with `//`. E.G.:
 
 	```c
-	free( s ); // I'm not sure that this is necessary to do for a program that's not looping.
+	free( s ); // Always free manually allocated memory.
 	```
 
 *	Code block description comments should be encased by multi-line comment demarcators, e.g.:
@@ -239,18 +233,22 @@ Comments
 	```c
 	/* Prints 'Hello, world' */
 	char s[] = "Hello, world\n";
-	printf( "%s\n", s );
+	printf( "%s", s );
 	```
 
 *	Function prototypes--especially as they appear in header files--should have a thorough description of the function, encased in multi-line comment demarcators, right below the function prototype. E.G.:
 
 	```c
-	void reprint( char *s, int i )
+	void reprint( char * s, int i )
 	/* Prints a string multiple times to STDIN.
 
-	   *s* = A pointer to a string.
-	   *i* = The number of time to print. */
+	   `s` = A pointer to a string.
+	   `i` = The number of time to print. */
 	```
+
+*	In general, give variables descriptive comments at their declaration.
+
+*	Non-obvious code-blocks should have a comment describing the action taking place, so that when you come back to it in 3 months, it doesn't look like Mandarin.
 
 Organization
 ------------
@@ -267,11 +265,11 @@ Organization
 
 *	Large, multi-file programs are organized accordingly:
 	*	Each file gets a *Comments* section.
-	*	Header files get the Symbolic Constants, Macros, and Functional Prototypes (and occasionally also any relevant *#include*'s).
-	*	Function files get Functions and any *#include*'s.
-	*	A main file gets the main function and any relevant *#include*'s.
+	*	Header files get the Symbolic Constants, Macros, and Functional Prototypes (and occasionally also any relevant *#include*'s, e.g. *stddef.h* when using funky types).
+	*	Function files get Functions and their necessary *#include*'s.
+	*	A main file gets the main function and any necessary *#include*'s.
 
 Variable & Function Naming
 --------------------------
 
-Naming conventions have yet to be determined. C convention generally runs towards minimal length (e.g. 's' to indicate a char pointer to a string). I've toyed with going with the first letters of a short description separated by underscores (e.g. "dynamic string" = `d\_s`). At other times, I've fallen back on the C convention. I'll update this section when I've sorted out my own position.
+Naming conventions have yet to be determined. C convention generally runs towards minimal length (e.g. 's' to indicate a variable for a string). I've toyed with going with the first letters of a short description separated by underscores (e.g. "dynamic string" = `d\_s`). At other times, I've fallen back on the C convention. I'll update this section when I develop some kind of preference.
