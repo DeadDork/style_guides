@@ -53,7 +53,7 @@ void print_test( int y, int z )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-int main()
+int main( void )
 {
 	int * y, z; // I fully realize how silly it is to make y into a pointer here.
 
@@ -264,7 +264,7 @@ Comments
 *	In general, give variables descriptive comments at their declaration, e.g.:
 
 	```c
-	int main()
+	int main( void )
 	{
 		int c; // Character
 
@@ -280,7 +280,7 @@ Comments
 *	Non-obvious code-blocks should have a comment describing the action taking place, so that when you come back to it in 3 months, it doesn't look like Mandarin. E.G. same as the above example, but with a description:
 
 	```c
-	int main()
+	int main( void )
 	{
 		int c; // Character
 
@@ -293,6 +293,16 @@ Comments
 		return 0;
 	}
 	```
+
+*	Per K & R, empty lists should be made explicit with *void*, e.g.:
+
+	```c
+	int main( void )
+	{
+		int x = 1337;
+
+		return 0;
+	}
 
 Organization
 ------------
