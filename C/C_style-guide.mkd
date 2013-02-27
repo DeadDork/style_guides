@@ -294,7 +294,7 @@ Organization
 *	Small, single-file programs are organized accordingly:
 	1.	Comments
 	2.	Libraries
-	3.	Symbolic Constants
+	3.	Symbolic Constants & External Variables
 	4.	Macros
 	5.	Structs
 	6.	Functional Prototypes
