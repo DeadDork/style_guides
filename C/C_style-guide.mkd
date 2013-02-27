@@ -310,7 +310,7 @@ Organization
 
 *	Large, multi-file programs are organized accordingly:
 	*	Each file gets a *Comments* section.
-	*	Header files get the Symbolic Constants, Macros, and Functional Prototypes (and occasionally also any relevant *#include*'s, e.g. *stddef.h* when using funky types).
+	*	Header files get the Symbolic Constants, Macros, External Variables, and Functional Prototypes (and occasionally also any relevant *#include*'s, e.g. *stddef.h* when using funky types).
 	*	Function files get Functions and their necessary *#include*'s.
 	*	A main file gets the main function and any necessary *#include*'s.
 
