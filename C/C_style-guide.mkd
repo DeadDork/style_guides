@@ -29,50 +29,56 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 #define PrintExpr( x ) ( printf( "PrintExpr:\n\t%s = [%d]\n", #x, ( x ) ) )
 
 ////////////////////////////////////////////////////////////////////////////////
+// External Variables
+
+int x = 1; // The first integer to add in the print_test() function.
+
+////////////////////////////////////////////////////////////////////////////////
 // Function Prototypes
 
-void print_test( int x, int y );
-/* Prints out x + y twice: 1) adds the two variables in the argument part of a normal `printf` 2) does the same, but lets a macro do the "heavy" lifting instead.
+void print_test( int y, int z );
+/* Prints out x + y + z twice: 1) prints the sums of the input in the argument section of the printf() fucntion 2) does the same, but lets a macro do the "heavy" lifting instead.
 
-   `x` = the first integer to be added.
-   `y` = the second integer to be added. */
+   `x` = The first integer to be added (is external).
+   `y` = The second integer to be added (parameterized).
+   `z` = The third integer to be added (parameterized). */
 
 ////////////////////////////////////////////////////////////////////////////////
 // Functions
 
-void print_test( int x, int y )
+void print_test( int y, int z )
 {
-	printf( "printf:\n\tx + y = [%d]\n", x + y );
-	PrintExpr( x + y );
+	printf( "printf:\n\tx + y + z = [%d]\n", x + y + z );
+	PrintExpr( x + y + z );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 int main()
 {
-	int * x, y; // I fully realize how silly it is to make x into a pointer here.
-
-	/* Sets x */
-	for( *x = 0; *x < 10; ++( *x ) );
+	int * y, z; // I fully realize how silly it is to make y into a pointer here.
 
 	/* Sets y */
-	while( y != 90 )
+	for( *y = 0; *y < 9; ++( *y ) );
+
+	/* Sets z */
+	while( z != 90 )
 	{
-		if( y < 80 )
+		if( z < 80 )
 		{
-			y = y + 10;
+			z = z + 10;
 		}
-		else if( y >= 80 )
+		else if( z >= 80 )
 		{
-			++y;
+			++z;
 		}
-		else if( y > 90 )
+		else if( z > 90 )
 		{
-			--y;
+			--z;
 		}
 	}
 
-	/* Prints x + y */
-	print_test( *x, y );
+	/* Prints x + y + z */
+	print_test( *y, z );
 
 	return 0;
 }
@@ -294,12 +300,13 @@ Organization
 *	Small, single-file programs are organized accordingly:
 	1.	Comments
 	2.	Libraries
-	3.	Symbolic Constants & External Variables
-	4.	Macros
-	5.	Structs
-	6.	Functional Prototypes
-	7.	Functions
-	8.	Main
+	3.	Symbolic Constants
+	4.	External Variables
+	5.	Macros
+	6.	Structs
+	7.	Functional Prototypes
+	8.	Functions
+	9.	Main
 
 *	Large, multi-file programs are organized accordingly:
 	*	Each file gets a *Comments* section.
