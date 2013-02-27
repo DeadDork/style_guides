@@ -268,7 +268,8 @@ Comments
 		}
 
 		return 0;
-	}```
+	}
+	```
 
 *	Non-obvious code-blocks should have a comment describing the action taking place, so that when you come back to it in 3 months, it doesn't look like Mandarin. E.G. same as the above example, but with a description:
 
