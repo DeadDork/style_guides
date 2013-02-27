@@ -32,10 +32,10 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 // Function Prototypes
 
 void print_test( int x, int y );
-/* Prints out x + y twice: 1) adding the two in the arguments of a normal `printf` 2) letting a macro do the "heavy" lifting instead.
+/* Prints out x + y twice: 1) adds the two variables in the argument part of a normal `printf` 2) does the same, but lets a macro do the "heavy" lifting instead.
 
-   `x` = the first integer you are adding.
-   `y` = the second integer you are adding. */
+   `x` = the first integer to be added.
+   `y` = the second integer to be added. */
 
 ////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -49,7 +49,7 @@ void print_test( int x, int y )
 ////////////////////////////////////////////////////////////////////////////////
 int main()
 {
-	int * x, y; // I fully realize how silly it is to make x into a pointer.
+	int * x, y; // I fully realize how silly it is to make x into a pointer here.
 
 	/* Sets x */
 	for( *x = 0; *x < 10; ++( *x ) );
@@ -130,6 +130,11 @@ Control Functions
 		printf( "x == 1, yay!\n" );
 		printf( "I am so bored...!\n" );
 	}
+	else if( x == 2 )
+	{
+		printf( "x == 2, wooooo!\n" );
+		printf( "Yup, really bored...!\n" );
+	}
 	else
 	{
 		printf( "x != 1, booo...\n" );
@@ -137,9 +142,9 @@ Control Functions
 	}
 	```
 
-	The usual convention looks better (e.g. '} else {'), mostly because my style seems to put undue separation between the if-true clause and the if-false clause. However, I often use `else if`, in which case the the usual convention produces an `else if` condition that bleeds into both the true consequent block & the false consequent block--which is why I use the form above.
+	The usual convention looks better (e.g. '} else {'). By comparison, my style is verbose & seems to to put undue separation between the if-true clause and the if-false clause. With regards to the former, my style is more consistent, so it's easier to debug; with regards to the latter, my style's `else if` doesn't bleed into into either if-true clauses it's sandwiched between.
 
-*	`if`, `when`, etc. are all functions, and should be written as such, per the __functions__ style guide. (I know many people treat them stylistically as if they were different.)
+*	`if`, `when`, etc. are all functions, and should be written as such, per the [functions section](https://github.com/DeadDork/style_guides/blob/master/C/C_style-guide.mkd#functions). (I know many people treat them stylistically as if they were different.)
 
 *	Control functions one-liners should be treated as multi-liners. That is, here is the K & R style:
 
@@ -182,7 +187,7 @@ Variable Declarations
 
 	I have a number of reasons for this:
 	*	It can be read backwards, per the example above, as "c points to char", so is easy to remember.
-	*	This form actually makes sense (compare it to the K & R style).
+	*	This form actually makes sense (compare it to the K & R style, which is ambiguous as all hell when it comes to dereferencing & pointers).
 	*	The declaration of a pointer to type can easily be distinguished from dereferencing a variable.
 	*	It lends itself to declaring multiple variables on the same line, e.g.:
 
@@ -211,6 +216,8 @@ Comments
 		printf( "Wut?!\n" );
 	```
 
+	This is because the `main` is very obvious.
+
 *	Comments in the comments section should be separate by at least one line break. If they are sufficiently decoupled, two. Both should be commented out with a `//`.
 
 	```C
@@ -228,7 +235,7 @@ Comments
 	free( s ); // Always free manually allocated memory.
 	```
 
-*	Code block description comments should be encased by multi-line comment demarcators, e.g.:
+*	Code block description comments should be encased by multi-line comment demarcators and placed at the head of the code block, e.g.:
 
 	```c
 	/* Prints 'Hello, world' */
@@ -239,16 +246,45 @@ Comments
 *	Function prototypes--especially as they appear in header files--should have a thorough description of the function, encased in multi-line comment demarcators, right below the function prototype. E.G.:
 
 	```c
-	void reprint( char * s, int i )
-	/* Prints a string multiple times to STDIN.
+	float add( float x, float y );
+	/* Adds the two arguments together.
 
-	   `s` = A pointer to a string.
-	   `i` = The number of time to print. */
+	`x` = The first value to be added.
+	`y` = The second value to be added.
+
+	Returns the sum of the two values. */
 	```
 
-*	In general, give variables descriptive comments at their declaration.
+*	In general, give variables descriptive comments at their declaration, e.g.:
 
-*	Non-obvious code-blocks should have a comment describing the action taking place, so that when you come back to it in 3 months, it doesn't look like Mandarin.
+	```c
+	int main()
+	{
+		int c; // Character
+
+		while( ( c = getchar() ) != EOF )
+		{
+			printf( "Character = [%c]\n", c );
+		}
+
+		return 0;
+	}```
+
+*	Non-obvious code-blocks should have a comment describing the action taking place, so that when you come back to it in 3 months, it doesn't look like Mandarin. E.G. same as the above example, but with a description:
+
+	```c
+	int main()
+	{
+		int c; // Character
+
+		/* Reads one character at a time from STDIN and prints it to STDOUT with a little extra */
+		while( ( c = getchar() ) != EOF )
+		{
+			printf( "Character = [%c]\n", c );
+		}
+
+		return 0;
+	}```
 
 Organization
 ------------
@@ -272,4 +308,4 @@ Organization
 Variable & Function Naming
 --------------------------
 
-Naming conventions have yet to be determined. C convention generally runs towards minimal length (e.g. 's' to indicate a variable for a string). I've toyed with going with the first letters of a short description separated by underscores (e.g. "dynamic string" = `d\_s`). At other times, I've fallen back on the C convention. I'll update this section when I develop some kind of preference.
+I have yet to determine variable & function naming conventions. C convention generally runs towards minimal length (e.g. 's' to indicate a variable for a string), apparently because back in the good ol' days vars couldn't be longer than 8 bits or some such. Clearly we're past that, but the convention has stuck. Most times, this isn't a problem, but sometimes it makes code unreadable. Accordingly, I've toyed with going with the first letters of a short description separated by underscores (e.g. "dynamic string" = `d\_s`), full descriptive names (e.g. `dynamic\_string`), etc. I'm still undecided what I'm going to go with. I'll update this section when I develop some kind of preference.
