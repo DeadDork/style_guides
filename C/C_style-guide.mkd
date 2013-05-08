@@ -89,16 +89,12 @@ Variables & Arrays
 *	Declarations should have a space between the function declaration. E.G.
 
 	```c
-	int main (void) {
-
 	char s[] = "Hello"; // String
 	```
 
 *	Variables & arrays should either have an obviously descriptive name or have a comment describing their name. Either way, their purpose should be obvious. E.G.
 
 	```c
-	int main (void) {
-
 	int e, numstr; // Element
 	```
 
@@ -210,7 +206,7 @@ Control Functions
 		printf ("%d == 1, yay!\n", x);
 	```
 
-	The exception are body-less loops. E.G. 
+	The exception is the body-less loop. E.G. 
 
 	```c
 	for (i = 0; s[i] != '\0' && s[i] != '\n'; ++i);
@@ -259,8 +255,8 @@ Comments
 
 	```C
 	////////////////////////////////////////////////////////////////////////////////
-	int main (void)
-	{
+	int main (void) {
+
 		printf ("Wut?!\n");
 	```
 
@@ -310,6 +306,7 @@ Comments
 
 	```c
 	int main (void) {
+
 		int c; // Character
 
 		while ((c = getchar ()) != EOF)
