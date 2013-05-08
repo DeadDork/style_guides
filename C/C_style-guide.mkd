@@ -50,7 +50,6 @@ void print_test (int y, int z);
 // Functions
 
 void print_test (int y, int z) {
-
 	extern int x;
 
 	printf ("printf:\n\tx + y + z = [%d]\n", x + y + z);
@@ -59,7 +58,6 @@ void print_test (int y, int z) {
 
 ////////////////////////////////////////////////////////////////////////////////
 int main (void) {
-
 	int * y, z; // I fully realize how silly it is to make y into a pointer here.
 
 	// Sets y
@@ -103,7 +101,6 @@ Variables & Arrays
 	```c
 	////////////////////////////////////////////////////////////////////////////////
 	int main (void) {
-
 		int alpha, beta, gamma, delta; // Greek 'A', Greek 'B', Greek 'G', Greek 'D'
 		int epsilon, zeta, eta; // Greek 'E', Greek 'Z', Greek 'E'
 	```
@@ -160,7 +157,6 @@ Functions
 
 	```c
 	int main (void) {
-
 		int x = 1337;
 
 		return 0;
@@ -256,7 +252,6 @@ Comments
 	```C
 	////////////////////////////////////////////////////////////////////////////////
 	int main (void) {
-
 		printf ("Wut?!\n");
 	```
 
@@ -306,7 +301,6 @@ Comments
 
 	```c
 	int main (void) {
-
 		int c; // Character
 
 		while ((c = getchar ()) != EOF)
@@ -320,7 +314,6 @@ Comments
 
 	```c
 	int main (void) {
-
 		int c; // Character
 
 		// Reads one character at a time from STDIN and prints it to STDOUT
