@@ -26,154 +26,194 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 ////////////////////////////////////////////////////////////////////////////////
 // Macros
 
-#define PrintExpr( x ) ( printf( "PrintExpr:\n\t%s = [%d]\n", #x, ( x ) ) )
+#define PrintExpr (x) (printf ("PrintExpr:\n\t%s = [%d]\n", #x, (x)))
 
 ////////////////////////////////////////////////////////////////////////////////
 // External Variables
 
-int x = 1; // The first integer to add in the print_test() function.
+int x = 1; // The first integer to add in the print_test function.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Function Prototypes
 
-void print_test( int y, int z );
-/* Prints out x + y + z twice: 1) prints the sums of the input in the argument section of the printf() fucntion 2) does the same, but lets a macro do the "heavy" lifting instead.
+void print_test (int y, int z);
+/* Prints out x + y + z twice: 1) prints the sums of the input in the argument section of the printf function 2) does the same, but lets a macro do the "heavy" lifting instead.
 
    `x` = The first integer to be added (is external).
-   `y` = The second integer to be added (parameterized).
+
+   `y` = The second integer to be added (parameterized). And sometimes I write
+   lots and lots and lots.
+
    `z` = The third integer to be added (parameterized). */
 
 ////////////////////////////////////////////////////////////////////////////////
 // Functions
 
-void print_test( int y, int z )
-{
-	printf( "printf:\n\tx + y + z = [%d]\n", x + y + z );
-	PrintExpr( x + y + z );
+void print_test (int y, int z) {
+
+	extern int x;
+
+	printf ("printf:\n\tx + y + z = [%d]\n", x + y + z);
+	PrintExpr (x + y + z);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-int main( void )
-{
+int main (void) {
+
 	int * y, z; // I fully realize how silly it is to make y into a pointer here.
 
-	/* Sets y */
-	for( *y = 0; *y < 9; ++( *y ) );
+	// Sets y
+	for (*y = 0; *y < 9; ++(*y)); // note how precedence is handled in expr3
 
-	/* Sets z */
-	while( z != 90 )
-	{
-		if( z < 80 )
-		{
+	// Sets z {{{
+	while (z != 90) {
+		if (z < 80)
 			z = z + 10;
-		}
-		else if( z >= 80 )
-		{
+		else if (z >= 80)
 			++z;
-		}
-		else if( z > 90 )
-		{
+		else if (z > 90)
 			--z;
-		}
 	}
+	// }}}
 
-	/* Prints x + y + z */
-	print_test( *y, z );
+	// Prints x + y + z
+	print_test (*y, z);
 
 	return 0;
 }
 ```
 
+Variables & Arrays
+------------------
+
+*	Declarations should have a space between the function declaration. E.G.
+
+	```c
+	int main (void) {
+
+	char s[] = "Hello"; // String
+	```
+
+*	Variables & arrays should either have an obviously descriptive name or have a comment describing their name. Either way, their purpose should be obvious. E.G.
+
+	```c
+	int main (void) {
+
+	int e, numstr; // Element
+	```
+
+*	Variables & arrays of the same type should be declared on the same line--permitted that they and their respective comments fit in 80 spaces. If they don't, they should be split over multiple lines so that they do. E.G.
+
+	```c
+	////////////////////////////////////////////////////////////////////////////////
+	int main (void) {
+
+		int alpha, beta, gamma, delta; // Greek 'A', Greek 'B', Greek 'G', Greek 'D'
+		int epsilon, zeta, eta; // Greek 'E', Greek 'Z', Greek 'E'
+	```
+
+*	Arrays don't have spaces in their element list. E.G.
+
+	```c
+	int nums[4]; // Numbers
+	double dblsndbls[2][2]; // Doubles and doubles
+
+	nums[0] = 10;
+	nums[1] = 20;
+	nums[2] = 30;
+	nums[3] = 40;
+
+	dblsndbls[0][0] = 0.0;
+	dblsndbls[0][1] = 0.1;
+	dblsndbls[1][0] = 1.0;
+	dblsndbls[1][1] = 1.1;
+	```
+
 Functions
 ---------
 
-*	My eyes are not so great, and I've found that spacing functions extensively is easier to read. E.G.
+*	After initially following a spacey style, e.g.
 
 	```c
 	printf( "hello\n" );
 	```
 
-*	I also like consistency, so I treat all functions the same way, even the control functions. E.G.
+	I broke down and switched to the much more natural Perl spacing style. E.G.
 
 	```c
-	if( x == 1 )
+	printf ("hello\n");
 	```
 
-*	Something I am unhappy about is how this style looks with nested parentheses. E.G.
+	This allows for a more natural coding style, where a function is declared, then it's arguments (the latter of which follows common English spacing conventions, e.g. no space after an open parenthesis, a space after a comma, etc.). A) There are fewer style errors B) It's closer to most extant C programming styles.
+
+	N.B. This style *does* differ from the man 3 pages C style. For instance, they would write `exit()`, while I would write `exit ()`. I will admit that for `void` arguments, this style makes more sense. However, most of my functions *do* have arguments, in which case I prefer the above. Since I'm a sucker for consistency, all functions get the space.
+
+*	As I mentioned, I'm a sucker for consistency, so I treat all functions the same way, even the control functions. E.G.
 
 	```c
-	printf( "%d\n",  pow( 2, 3 ) );
+	if (x == 1)
 	```
 
-	It looks bad. It's also a pain to maintain, as it's easy to forget to space correctly. I think that the following looks much better:
+*	Nested parentheses do not receive a space. This is hard on the eyes, sure, but a decent text editor overcomes this easily.
 
 	```c
-	printf("%d\n", pow(2, 3));
+	printf ("%d\n", pow (2, 3));
 	```
 
-	However, like I said, my eyesight isn't very good, and I've found that it's easier to notice errors when there is plenty of spacing. It's ugly, sure, but utility wins out in this case. It's close, though. I could easily switch sometime in the future.
+*	Per K & R, empty lists should be made explicit with *void*, e.g.:
+
+	```c
+	int main (void) {
+
+		int x = 1337;
+
+		return 0;
+	}
 
 Control Functions
 -----------------
 
+*	`if`, `when`, etc. are all functions, and should be written as such.
+
 *	Control function multi-liners should use curly braces, per the following:
 
 	```c
-	if( x == 1 )
-	{
-		printf( "x == 1, yay!\n" );
-		printf( "I am so bored...!\n" );
+	if (x == 1) {
+		printf ("x == 1, yay!\n");
+		printf ("I am so bored...!\n");
 	}
 	```
 
-	This allows the body of the control functions to be grouped logically, and without the control function call melting into the first line of the body. Also, this makes for an overall more consistent style.
+	This way the indentation is more meaningful.
 
 *	The `else` function follows this convention, too. E.G.:
 
 	```c
-	if( x == 1 )
-	{
-		printf( "x == 1, yay!\n" );
-		printf( "I am so bored...!\n" );
-	}
-	else if( x == 2 )
-	{
-		printf( "x == 2, wooooo!\n" );
-		printf( "Yup, really bored...!\n" );
-	}
-	else
-	{
-		printf( "x != 1, booo...\n" );
-		printf( "I am still bored...!\n" );
+	if (x == 1) {
+		printf ("x == 1, yay!\n");
+		printf ("I am so bored...!\n");
+	} else if (x == 2) {
+		printf ("x == 2, wooooo!\n");
+		printf ("Yup, really bored...!\n");
+	} else {
+		printf ("x != 1, booo...\n");
+		printf ("I am still bored...!\n");
 	}
 	```
 
-	The usual convention looks better (e.g. '} else {'). By comparison, my style is verbose & seems to to put undue separation between the if-true clause and the if-false clause. With regards to the former, my style is more consistent, so it's easier to debug; with regards to the latter, my style's `else if` doesn't bleed into into either if-true clauses it's sandwiched between.
+	(My previous style was simply too verbose. Also, it separated the control function too much from it's body.)
 
-*	`if`, `when`, etc. are all functions, and should be written as such, per the [functions section](https://github.com/DeadDork/style_guides/blob/master/C/C_style-guide.mkd#functions). (I know many people treat them stylistically as if they were different.)
-
-*	Control functions one-liners should be treated as multi-liners. That is, here is the K & R style:
+*	Control functions one-liners follow the K & R style. E.G.
 
 	```c
-	if( x == 1 )
-		printf( "x == 1, yay!\n" );
+	if (x == 1)
+		printf ("%d == 1, yay!\n", x);
 	```
 
-	I have found that it is better to add curly braces, per the following:
+	The exception are body-less loops. E.G. 
 
 	```c
-	if( x == 1 )
-	{
-		printf( "x == 1, yay!\n" );
-	}
-	```
-
-	I will readily admit that the former style looks better, but the latter is less error-prone when adding additional lines to the consequent clause. Again, utility wins against beauty.
-
-	One exception is a loop function that just increments according to a condtion. In such cases, it should be a **real** one-liner:
-
-	```c
-	for( i = 0; s[ i ] != '\0' && s[ i ] != '\n'; ++i );
+	for (i = 0; s[i] != '\0' && s[i] != '\n'; ++i);
 	```
 
 Variable Declarations
@@ -198,7 +238,7 @@ Variable Declarations
 	*	It lends itself to declaring multiple variables on the same line, e.g.:
 
 		```c
-		char a, b, * c, * d, ** f;
+		char a, b, * c, * d, ** f, *** g;
 		```
 
 Comments
@@ -213,13 +253,15 @@ Comments
 	// This is the first item in this section
 	```
 
+*	I make an effort to not exceed 80 characters per line.
+
 *	The `main` section is special, in that it only has the horizontal "bar". E.G.:
 
 	```C
 	////////////////////////////////////////////////////////////////////////////////
-	int main()
+	int main (void)
 	{
-		printf( "Wut?!\n" );
+		printf ("Wut?!\n");
 	```
 
 	This is because the `main` is very obvious.
@@ -231,31 +273,34 @@ Comments
 	// Comments
 
 	// This is a dummy comment section.
-
 	// I feel like a dummy...
+
+	// Syria is still in a state of civil war.
 	```
 
 *	Comments that only refer to one line should be placed to the right of the code, and commented out with `//`. E.G.:
 
 	```c
-	free( s ); // Always free manually allocated memory.
+	free (s); // Always free memory
 	```
 
-*	Code block description comments should be encased by multi-line comment demarcators and placed at the head of the code block, e.g.:
+*	Code block description comments should be commented out with `//`, a description, a `{{{`, and at the end of the block a `// }}}`. E.G.:
 
 	```c
-	/* Prints 'Hello, world' */
+	// Prints 'Hello, world' {{{
 	char s[] = "Hello, world\n";
-	printf( "%s", s );
+	printf ("%s", s);
+	// }}}
 	```
 
 *	Function prototypes--especially as they appear in header files--should have a thorough description of the function, encased in multi-line comment demarcators, right below the function prototype. E.G.:
 
 	```c
-	float add( float x, float y );
+	float add (float x, float y);
 	/* Adds the two arguments together.
 
 	`x` = The first value to be added.
+
 	`y` = The second value to be added.
 
 	Returns the sum of the two values. */
@@ -264,45 +309,30 @@ Comments
 *	In general, give variables descriptive comments at their declaration, e.g.:
 
 	```c
-	int main( void )
-	{
+	int main (void) {
 		int c; // Character
 
-		while( ( c = getchar() ) != EOF )
-		{
-			printf( "Character = [%c]\n", c );
-		}
+		while ((c = getchar ()) != EOF)
+			printf ("Character = [%c]\n", c);
 
 		return 0;
 	}
 	```
 
-*	Non-obvious code-blocks should have a comment describing the action taking place, so that when you come back to it in 3 months, it doesn't look like Mandarin. E.G. same as the above example, but with a description:
+*	Non-obvious code-blocks should have a comment describing the action taking place, so that when you come back to it in 3 months, it doesn't look like [Linear B](https://en.wikipedia.org/wiki/Linear_B). E.G. same as the above example, but with a description:
 
 	```c
-	int main( void )
-	{
+	int main (void) {
+
 		int c; // Character
 
-		/* Reads one character at a time from STDIN and prints it to STDOUT with a little extra */
-		while( ( c = getchar() ) != EOF )
-		{
-			printf( "Character = [%c]\n", c );
-		}
+		// Reads one character at a time from STDIN and prints it to STDOUT
+		while ((c = getchar ()) != EOF)
+			printf ("Character = [%c]\n", c);
 
 		return 0;
 	}
 	```
-
-*	Per K & R, empty lists should be made explicit with *void*, e.g.:
-
-	```c
-	int main( void )
-	{
-		int x = 1337;
-
-		return 0;
-	}
 
 Organization
 ------------
@@ -311,18 +341,20 @@ Organization
 	1.	Comments
 	2.	Libraries
 	3.	Symbolic Constants
-	4.	External Variables
-	5.	Macros
-	6.	Structs
-	7.	Functional Prototypes
+	4.	Macros
+	5.	Structs
+	6.	External Variables
+	7.	Function Prototypes
 	8.	Functions
 	9.	Main
 
-*	Large, multi-file programs are organized accordingly:
+*	Large, multi-file programs are organized as follows:
 	*	Each file gets a *Comments* section.
 	*	Header files get the Symbolic Constants, Macros, External Variables, and Functional Prototypes (and occasionally also any relevant *#include*'s, e.g. *stddef.h* when using funky types).
 	*	Function files get Functions and their necessary *#include*'s.
 	*	A main file gets the main function and any necessary *#include*'s.
+
+	Since large projects are organized differently depending on the size and use, this is just a general guide (for instance, a function file may call on a function in another file, the function of which may call on yet another function in yet another file).
 
 Variable & Function Naming
 --------------------------
