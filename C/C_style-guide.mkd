@@ -331,11 +331,11 @@ Comments
 	int main (void) {
 		int e; // Element
 
-		for (e = 12; e < 24; ++e) { // 2 tabs
-			printf ("e = [%d]\n"); // 3 tabs: Nothing special about this comment,
-			                       // 3 tabs + 23 spaces: except that it is long
-			printf ("e != [%d]\n", e - 3); // 3 tabs
-		} // 2 tabs
+		for (e = 12; e < 24; ++e) { // 1 tabs
+			printf ("e = [%d]\n"); // 2 tabs: Nothing special about this comment,
+			                       // 2 tabs + 23 spaces: except that it is long
+			printf ("e != [%d]\n", e - 3); // 2 tabs
+		} // 1 tabs
 	```
 
 Organization
