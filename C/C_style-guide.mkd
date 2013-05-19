@@ -26,7 +26,7 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 ////////////////////////////////////////////////////////////////////////////////
 // Macros
 
-#define PrintExpr (x) (printf ("PrintExpr:\n\t%s = [%d]\n", #x, (x)))
+#define PrintExpr(x) (printf("PrintExpr:\n\t%s = [%d]\n", #x, (x)))
 
 ////////////////////////////////////////////////////////////////////////////////
 // External Variables
@@ -36,7 +36,7 @@ int x = 1; // The first integer to add in the print_test function.
 ////////////////////////////////////////////////////////////////////////////////
 // Function Prototypes
 
-void print_test (int y, int z);
+void print_test(int y, int z);
 /* Prints out x + y + z twice: 1) prints the sums of the input in the argument section of the printf function 2) does the same, but lets a macro do the "heavy" lifting instead.
 
    `x` = The first integer to be added (is external).
@@ -49,33 +49,33 @@ void print_test (int y, int z);
 ////////////////////////////////////////////////////////////////////////////////
 // Functions
 
-void print_test (int y, int z) {
+void print_test(int y, int z) {
 	extern int x;
 
-	printf ("printf:\n\tx + y + z = [%d]\n", x + y + z);
-	PrintExpr (x + y + z);
+	printf("printf:\n\tx + y + z = [%d]\n", x + y + z);
+	PrintExpr(x + y + z);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-int main (void) {
+int main(void) {
 	int * y, z; // I fully realize how silly it is to make y into a pointer here.
 
 	// Sets y
-	for (*y = 0; *y < 9; ++(*y)); // note how precedence is handled in expr3
+	for(*y = 0; *y < 9; ++(*y)); // note how precedence is handled in expr3
 
 	// Sets z {{{
-	while (z != 90) {
-		if (z < 80)
+	while(z != 90) {
+		if(z < 80)
 			z = z + 10;
-		else if (z >= 80)
+		else if(z >= 80)
 			++z;
-		else if (z > 90)
+		else if(z > 90)
 			--z;
 	}
 	// }}}
 
 	// Prints x + y + z
-	print_test (*y, z);
+	print_test(*y, z);
 
 	return 0;
 }
@@ -100,7 +100,7 @@ Variables & Arrays
 
 	```c
 	////////////////////////////////////////////////////////////////////////////////
-	int main (void) {
+	int main(void) {
 		int alpha, beta, gamma, delta; // Greek 'A', Greek 'B', Greek 'G', Greek 'D'
 		int epsilon, zeta, eta; // Greek 'E', Greek 'Z', Greek 'E'
 	```
@@ -139,24 +139,36 @@ Functions
 
 	This allows for a more natural coding style, where a function is declared, then it's arguments (the latter of which follows common English spacing conventions, e.g. no space after an open parenthesis, a space after a comma, etc.). A) There are fewer style errors B) It's closer to most extant C programming styles.
 
-	N.B. This style *does* differ from the man 3 pages C style. For instance, they would write `exit()`, while I would write `exit ()`. I will admit that for `void` arguments, this style makes more sense. However, most of my functions *do* have arguments, in which case I prefer the above. Since I'm a sucker for consistency, all functions get the space.
-
-*	As I mentioned, I'm a sucker for consistency, so I treat all functions the same way, even the control functions. E.G.
+	Lately, though, I've realized that there is sometimes visual (if not syntactical) ambiguity with regards to binding. For instance,
 
 	```c
-	if (x == 1)
+	log (10) / log (2);
+	```
+
+	acts as an unfortunate spacing, as it's not as obvious as it could be to determine the order of operations. It is far clearer to connect the parameters to the function name, e.g.
+
+	```c
+	log(10) / log(2);
+	```
+
+	This style also has the added benefit of being closer to the K & R style.
+
+*	As I mentioned, I'm a sucker for consistency, so I treat all functions the same way, even function declarations. E.G.
+
+	```c
+	double power(int x, int exp);
 	```
 
 *	Nested parentheses do not receive a space. This is hard on the eyes, sure, but a decent text editor overcomes this easily.
 
 	```c
-	printf ("%d\n", pow (2, 3));
+	printf("%d\n", power(2, 3));
 	```
 
 *	Per K & R, empty lists should be made explicit with *void*, e.g.:
 
 	```c
-	int main (void) {
+	int main(void) {
 		int x = 1337;
 
 		return 0;
@@ -167,12 +179,16 @@ Control Functions
 
 *	`if`, `when`, etc. are all functions, and should be written as such.
 
+	```c
+	for(e = 0; e < x; ++e)
+	```
+
 *	Control function multi-liners should use curly braces, per the following:
 
 	```c
-	if (x == 1) {
-		printf ("x == 1, yay!\n");
-		printf ("I am so bored...!\n");
+	if(x == 1) {
+		printf("x == 1, yay!\n");
+		printf("I am so bored...!\n");
 	}
 	```
 
@@ -181,15 +197,15 @@ Control Functions
 *	The `else` function follows this convention, too. E.G.:
 
 	```c
-	if (x == 1) {
-		printf ("x == 1, yay!\n");
-		printf ("I am so bored...!\n");
-	} else if (x == 2) {
-		printf ("x == 2, wooooo!\n");
-		printf ("Yup, really bored...!\n");
+	if(x == 1) {
+		printf("x == 1, yay!\n");
+		printf("I am so bored...!\n");
+	} else if(x == 2) {
+		printf("x == 2, wooooo!\n");
+		printf("Yup, really bored...!\n");
 	} else {
-		printf ("x != 1, booo...\n");
-		printf ("I am still bored...!\n");
+		printf("x != 1, booo...\n");
+		printf("I am still bored...!\n");
 	}
 	```
 
@@ -198,14 +214,14 @@ Control Functions
 *	Control functions one-liners follow the K & R style. E.G.
 
 	```c
-	if (x == 1)
+	if(x == 1)
 		printf ("%d == 1, yay!\n", x);
 	```
 
 	The exception is the body-less loop. E.G. 
 
 	```c
-	for (i = 0; s[i] != '\0' && s[i] != '\n'; ++i);
+	for(i = 0; s[i] != '\0' && s[i] != '\n'; ++i);
 	```
 
 Variable Declarations
@@ -251,8 +267,8 @@ Comments
 
 	```C
 	////////////////////////////////////////////////////////////////////////////////
-	int main (void) {
-		printf ("Wut?!\n");
+	int main(void) {
+		printf("Wut?!\n");
 	```
 
 	This is because the `main` is very obvious.
@@ -272,7 +288,7 @@ Comments
 *	Comments that only refer to one line should be placed to the right of the code, and commented out with `//`. E.G.:
 
 	```c
-	free (s); // Always free memory
+	free(s); // Always free memory
 	```
 
 *	Code block description comments should be commented out with `//`, a description, a `{{{`, and at the end of the block a `// }}}`. E.G.:
@@ -280,14 +296,14 @@ Comments
 	```c
 	// Prints 'Hello, world' {{{
 	char s[] = "Hello, world\n";
-	printf ("%s", s);
+	printf("%s", s);
 	// }}}
 	```
 
 *	Function prototypes--especially as they appear in header files--should have a thorough description of the function, encased in multi-line comment demarcators, right below the function prototype. E.G.:
 
 	```c
-	float add (float x, float y);
+	float add(float x, float y);
 	/* Adds the two arguments together.
 
 	`x` = The first value to be added.
@@ -300,11 +316,11 @@ Comments
 *	In general, give variables descriptive comments at their declaration, e.g.:
 
 	```c
-	int main (void) {
+	int main(void) {
 		int c; // Character
 
-		while ((c = getchar ()) != EOF)
-			printf ("Character = [%c]\n", c);
+		while((c = getchar()) != EOF)
+			printf("Character = [%c]\n", c);
 
 		return 0;
 	}
@@ -313,12 +329,12 @@ Comments
 *	Non-obvious code-blocks should have a comment describing the action taking place, so that when you come back to it in 3 months, it doesn't look like [Linear B](https://en.wikipedia.org/wiki/Linear_B). E.G. same as the above example, but with a description:
 
 	```c
-	int main (void) {
+	int main(void) {
 		int c; // Character
 
 		// Reads one character at a time from STDIN and prints it to STDOUT
-		while ((c = getchar ()) != EOF)
-			printf ("Character = [%c]\n", c);
+		while((c = getchar()) != EOF)
+			printf("Character = [%c]\n", c);
 
 		return 0;
 	}
@@ -328,13 +344,13 @@ Comments
 
 	```c
 	////////////////////////////////////////////////////////////////////////////////
-	int main (void) {
+	int main(void) {
 		int e; // Element
 
-		for (e = 12; e < 24; ++e) { // 1 tabs
-			printf ("e = [%d]\n"); // 2 tabs: Nothing special about this comment,
+		for(e = 12; e < 24; ++e) { // 1 tabs
+			printf("e = [%d]\n"); // 2 tabs: Nothing special about this comment,
 			                       // 2 tabs + 23 spaces: except that it is long
-			printf ("e != [%d]\n", e - 3); // 2 tabs
+			printf("e != [%d]\n", e - 3); // 2 tabs
 		} // 1 tabs
 	```
 
