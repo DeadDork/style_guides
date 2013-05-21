@@ -16,6 +16,7 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 // Libraries
 
 #include <stdio.h>
+#include <math.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Symbolic Constants
@@ -77,6 +78,9 @@ int main (void) {
 	// Prints x + y + z
 	print_test (*y, z);
 
+	// Prints the result of an arbitrary, complex expression
+	printf ("%f\n", 3 + 4 sin(fabs(x)) * (log(10) / pow(2, 3)));
+
 	return 0;
 }
 ```
@@ -109,7 +113,7 @@ Variables & Arrays
 
 	```c
 	int nums[4]; // Numbers
-	double dblsndbls[2][2]; // Doubles and doubles
+	double dblsndbls[2][2]; // Doubles and doubles of doubles
 
 	nums[0] = 10;
 	nums[1] = 20;
@@ -122,35 +126,102 @@ Variables & Arrays
 	dblsndbls[1][1] = 1.1;
 	```
 
+*	I use the following generic variable names:
+
+	*	Generic void
+
+		```c
+		void * v;
+		```
+
+	*	Generic char
+
+		```c
+		char c;
+		```
+
+	*	Generic string
+
+		```c
+		char * s;
+		//char s[maxstr];
+		```
+
+	*	Generic short
+
+		```c
+		int sh;
+		```
+
+	*	Generic integer
+
+		```c
+		int i;
+		```
+
+	*	Generic long
+
+		```c
+		int l;
+		```
+
+	*	Generic float
+
+		```c
+		int f;
+		```
+
+	*	Generic double
+
+		```c
+		int d;
+		```
+
+	*	Generic signed integer
+
+		```c
+		int si;
+		```
+
+	*	Generic unsigned integer
+
+		```c
+		int ui;
+		```
+
+	*	Generic temporary (for all types, but in this case a char)
+
+		```c
+		int t;
+		```
+
 Functions
 ---------
 
-*	After initially following a spacey style, e.g.
+*	After initially following IBM's spacey style, e.g.
 
 	```c
 	printf( "hello\n" );
 	```
 
-	I broke down and switched to the much more natural Perl spacing style. E.G.
+	I finally broke down. Intellectually, I agree with it wholeheartedly, as it does solve a lot of style problems very neatly. However, in practice I find that it makes for hideous code. As a result, I make a conceptual distinction between functions that have a contextually relevant return value, and those that don't:
 
-	```c
-	printf ("hello\n");
-	```
+	*	The former have their aguments tightly bound to the function name when it is called. This way, complex expressions containing functions with return values are easier to parse. E.G.
 
-	This allows for a more natural coding style, where a function is declared, then it's arguments (the latter of which follows common English spacing conventions, e.g. no space after an open parenthesis, a space after a comma, etc.). A) There are fewer style errors B) It's closer to most extant C programming styles.
+		```c
+		double x = 3 + 7 * (log(10) / log(2));
+		```
 
-	N.B. This style *does* differ from the man 3 pages C style. For instance, they would write `exit()`, while I would write `exit ()`. I will admit that for `void` arguments, this style makes more sense. However, most of my functions *do* have arguments, in which case I prefer the above. Since I'm a sucker for consistency, all functions get the space.
+	*	The latter are not tightly bound to the function name when it is called. This way, the code reads more like a natural language. E.G.
 
-*	As I mentioned, I'm a sucker for consistency, so I treat all functions the same way, even the control functions. E.G.
-
-	```c
-	if (x == 1)
-	```
+		```c
+		printf ("Hello, boy. Hahahahahahaha!!!\n"); // Why, yes, I *am* a big fan of Cowboy Bebop!
+		```
 
 *	Nested parentheses do not receive a space. This is hard on the eyes, sure, but a decent text editor overcomes this easily.
 
 	```c
-	printf ("%d\n", pow (2, 3));
+	printf ("%d\n", pow(2, 3));
 	```
 
 *	Per K & R, empty lists should be made explicit with *void*, e.g.:
@@ -165,9 +236,15 @@ Functions
 Control Functions
 -----------------
 
-*	`if`, `when`, etc. are all functions, and should be written as such.
+*	Control functions are not tightly bound to their arguments, e.g.
 
-*	Control function multi-liners should use curly braces, per the following:
+	```c
+	if (x > 1) {
+		printf ("%f\n", 2 * 3 / log(8));
+	}
+	```
+
+*	Multi-liners should use curly braces, per the following:
 
 	```c
 	if (x == 1) {
@@ -303,7 +380,7 @@ Comments
 	int main (void) {
 		int c; // Character
 
-		while ((c = getchar ()) != EOF)
+		while ((c = getchar()) != EOF)
 			printf ("Character = [%c]\n", c);
 
 		return 0;
@@ -317,7 +394,7 @@ Comments
 		int c; // Character
 
 		// Reads one character at a time from STDIN and prints it to STDOUT
-		while ((c = getchar ()) != EOF)
+		while ((c = getchar()) != EOF)
 			printf ("Character = [%c]\n", c);
 
 		return 0;
