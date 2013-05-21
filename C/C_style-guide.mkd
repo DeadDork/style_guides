@@ -94,6 +94,29 @@ Variables & Arrays
 	char s[] = "Hello"; // String
 	```
 
+*	Pointers should be declared in the form of
+
+	```c
+	type * var;
+	```
+
+	For example:
+
+	```c
+	char * c;
+	```
+
+	I have a number of reasons for this:
+	*	It can be easily read backwards, per the example above, as "c points to a char".
+	*	This form actually makes sense (compare it to the K & R style, which is ambiguous as all hell when it comes to dereferencing & pointers).
+	*	The declaration of a pointer to type can easily be distinguished from dereferencing a variable (though it does risk ambiguity with multiplication, but hopefully the context is sufficient).
+	*	It lends itself to declaring multiple variables on the same line, e.g.:
+
+		```c
+		char a, b, * c, * d, ** f, *** g;
+		```
+
+
 *	Variables & arrays should either have an obviously descriptive name or have a comment describing their name. Either way, their purpose should be obvious. E.G.
 
 	```c
@@ -284,31 +307,6 @@ Control Functions
 	```c
 	for (i = 0; s[i] != '\0' && s[i] != '\n'; ++i);
 	```
-
-Variable Declarations
----------------------
-
-*	Pointers should be declared in the form of
-
-	```c
-	type * var;
-	```
-
-	For example:
-
-	```c
-	char * c;
-	```
-
-	I have a number of reasons for this:
-	*	It can be read backwards, per the example above, as "c points to char", so is easy to remember.
-	*	This form actually makes sense (compare it to the K & R style, which is ambiguous as all hell when it comes to dereferencing & pointers).
-	*	The declaration of a pointer to type can easily be distinguished from dereferencing a variable.
-	*	It lends itself to declaring multiple variables on the same line, e.g.:
-
-		```c
-		char a, b, * c, * d, ** f, *** g;
-		```
 
 Comments
 --------
