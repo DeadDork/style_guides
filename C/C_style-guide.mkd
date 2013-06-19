@@ -27,7 +27,7 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 ////////////////////////////////////////////////////////////////////////////////
 // Macros
 
-#define PrintExpr (x) (printf ("PrintExpr:\n\t%s = [%d]\n", #x, (x)))
+#define PrintExpr(x) (printf("PrintExpr:\n\t%s = [%d]\n", #x, (x)))
 
 ////////////////////////////////////////////////////////////////////////////////
 // External Variables
@@ -37,28 +37,24 @@ int x = 1; // The first integer to add in the print_test function.
 ////////////////////////////////////////////////////////////////////////////////
 // Function Prototypes
 
-void print_test (int y, int z);
-/* Prints out x + y + z twice: 1) prints the sums of the input in the argument section of the printf function 2) does the same, but lets a macro do the "heavy" lifting instead.
-
-   `x` = The first integer to be added (is external).
-
-   `y` = The second integer to be added (parameterized). And sometimes I write
-   lots and lots and lots.
-
-   `z` = The third integer to be added (parameterized). */
+// Prints out x + y + z twice:
+//// 1) prints the sums of the input in the argument section of printf()
+//
+//// 2) does the same, but lets a macro do the "heavy" lifting instead.
+void print_test(int y, int z);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Functions
 
-void print_test (int y, int z) {
+void print_test(int y, int z) {
 	extern int x;
 
-	printf ("printf:\n\tx + y + z = [%d]\n", x + y + z);
-	PrintExpr (x + y + z);
+	printf("printf:\n\tx + y + z = [%d]\n", x + y + z);
+	PrintExpr(x + y + z);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-int main (void) {
+int main(void) {
 	int * y, z; // I fully realize how silly it is to make y into a pointer here.
 
 	// Sets y
@@ -76,10 +72,10 @@ int main (void) {
 	// }}}
 
 	// Prints x + y + z
-	print_test (*y, z);
+	print_test(*y, z);
 
 	// Prints the result of an arbitrary, complex expression
-	printf ("%f\n", 3 + 4 sin(fabs(x)) * (log(10) / pow(2, 3)));
+	printf("%f\n", 3 + 4 sin(fabs(x)) * (log(10) / pow(2, 3)));
 
 	return 0;
 }
@@ -116,7 +112,6 @@ Variables & Arrays
 		char a, b, * c, * d, ** f, *** g;
 		```
 
-
 *	Variables & arrays should either have an obviously descriptive name or have a comment describing their name. Either way, their purpose should be obvious. E.G.
 
 	```c
@@ -127,7 +122,7 @@ Variables & Arrays
 
 	```c
 	////////////////////////////////////////////////////////////////////////////////
-	int main (void) {
+	int main(void) {
 		int alpha, beta, gamma, delta; // Greek 'A', Greek 'B', Greek 'G', Greek 'D'
 		int epsilon, zeta, eta; // Greek 'E', Greek 'Z', Greek 'E'
 	```
@@ -215,7 +210,7 @@ Variables & Arrays
 	*	Generic temporary (for all types, but in this case a char)
 
 		```c
-		int t;
+		char t;
 		```
 
 Functions
@@ -227,30 +222,31 @@ Functions
 	printf( "hello\n" );
 	```
 
-	I finally broke down. Intellectually, I agree with it wholeheartedly, as it does solve a lot of style problems very neatly. However, in practice I find that it makes for hideous code. As a result, I make a conceptual distinction between functions that have a contextually relevant return value, and those that don't:
+	I finally broke down. Intellectually, I agree with it wholeheartedly, as it does solve a lot of style problems very neatly. However, in practice I find that it makes for hideous code. I much prefer a style very similar to K & R's tight style:
 
-	*	The former have their aguments tightly bound to the function name when it is called. This way, complex expressions containing functions with return values are easier to parse. E.G.
+	*	All function aguments are tightly bound to the function name. This way, complex expressions containing functions with return values are easier to parse. Moreover, you get fewer style errors due to forgotten spaces. E.G.
 
 		```c
 		double x = 3 + 7 * (log(10) / log(2));
 		```
 
-	*	The latter are not tightly bound to the function name when it is called. This way, the code reads more like a natural language. E.G.
+	*	`while`, `for`, `if`, etc. are actually not functions, but rather are statements. This distinction is emphasized with a space between their "arguments". E.G.
 
 		```c
-		printf ("Hello, boy. Hahahahahahaha!!!\n"); // Why, yes, I *am* a big fan of Cowboy Bebop!
+		if (episode == 20)
+			printf("Hello, boy. Hahahahahahaha!!!\n"); // Why, yes, I *am* a big fan of Cowboy Bebop!
 		```
 
-*	Nested parentheses do not receive a space. This is hard on the eyes, sure, but a decent text editor overcomes this easily.
+*	Nested parentheses do not receive a space. This is hard on the eyes, sure, but a decent text editor with syntax highlighting overcomes this easily.
 
 	```c
-	printf ("%d\n", pow(2, 3));
+	printf("%d\n", pow(2, 3));
 	```
 
-*	Per K & R, empty lists should be made explicit with *void*, e.g.:
+*	Per K & R, empty lists in function declarations should be made explicit with *void*, e.g.:
 
 	```c
-	int main (void) {
+	int main(void) {
 		int x = 1337;
 
 		return 0;
@@ -259,11 +255,11 @@ Functions
 Control Functions
 -----------------
 
-*	Control functions are not tightly bound to their arguments, e.g.
+*	Again, control statemnts are not functions per se in C, which is indicated with a space between their "arguments", e.g.
 
 	```c
-	if (x > 1) {
-		printf ("%f\n", 2 * 3 / log(8));
+	if (x > 1)
+		printf("%f\n", 2 * 3 / log(8));
 	}
 	```
 
@@ -271,25 +267,25 @@ Control Functions
 
 	```c
 	if (x == 1) {
-		printf ("x == 1, yay!\n");
-		printf ("I am so bored...!\n");
+		printf("x == 1, yay!\n");
+		printf("I am so bored...!\n");
 	}
 	```
 
-	This way the indentation is more meaningful.
+	This way the indentation is more meaningful and funtions are tight.
 
 *	The `else` function follows this convention, too. E.G.:
 
 	```c
 	if (x == 1) {
-		printf ("x == 1, yay!\n");
-		printf ("I am so bored...!\n");
+		printf("x == 1, yay!\n");
+		printf("I am so bored...!\n");
 	} else if (x == 2) {
-		printf ("x == 2, wooooo!\n");
-		printf ("Yup, really bored...!\n");
+		printf("x == 2, wooooo!\n");
+		printf("Yup, really bored...!\n");
 	} else {
-		printf ("x != 1, booo...\n");
-		printf ("I am still bored...!\n");
+		printf("x != 1, booo...\n");
+		printf("I am still bored...!\n");
 	}
 	```
 
@@ -299,7 +295,7 @@ Control Functions
 
 	```c
 	if (x == 1)
-		printf ("%d == 1, yay!\n", x);
+		printf("%d == 1, yay!\n", x);
 	```
 
 	The exception is the body-less loop. E.G. 
@@ -326,8 +322,8 @@ Comments
 
 	```C
 	////////////////////////////////////////////////////////////////////////////////
-	int main (void) {
-		printf ("Wut?!\n");
+	int main(void) {
+		printf("Wut?!\n");
 	```
 
 	This is because the `main` is very obvious.
@@ -347,7 +343,7 @@ Comments
 *	Comments that only refer to one line should be placed to the right of the code, and commented out with `//`. E.G.:
 
 	```c
-	free (s); // Always free memory
+	free(s); // Always free memory
 	```
 
 *	Code block description comments should be commented out with `//`, a description, a `{{{`, and at the end of the block a `// }}}`. E.G.:
@@ -355,31 +351,27 @@ Comments
 	```c
 	// Prints 'Hello, world' {{{
 	char s[] = "Hello, world\n";
-	printf ("%s", s);
+	printf("%s", s);
 	// }}}
 	```
 
-*	Function prototypes--especially as they appear in header files--should have a thorough description of the function, encased in multi-line comment demarcators, right below the function prototype. E.G.:
+*	Function prototypes--especially as they appear in header files--should a stub description of the function, e.g.:
 
 	```c
-	float add (float x, float y);
-	/* Adds the two arguments together.
-
-	`x` = The first value to be added.
-
-	`y` = The second value to be added.
-
-	Returns the sum of the two values. */
+	// Adds the two arguments together.
+	float add(float x, float y);
 	```
+
+	N.B. In the previous style, I would write detailed descriptions. In practice, though, I found this to be a hugh PITA that was invariably unnecessary.
 
 *	In general, give variables descriptive comments at their declaration, e.g.:
 
 	```c
-	int main (void) {
+	int main(void) {
 		int c; // Character
 
-		while ((c = getchar()) != EOF)
-			printf ("Character = [%c]\n", c);
+		while((c = getchar()) != EOF)
+			printf("Character = [%c]\n", c);
 
 		return 0;
 	}
@@ -388,12 +380,12 @@ Comments
 *	Non-obvious code-blocks should have a comment describing the action taking place, so that when you come back to it in 3 months, it doesn't look like [Linear B](https://en.wikipedia.org/wiki/Linear_B). E.G. same as the above example, but with a description:
 
 	```c
-	int main (void) {
+	int main(void) {
 		int c; // Character
 
 		// Reads one character at a time from STDIN and prints it to STDOUT
 		while ((c = getchar()) != EOF)
-			printf ("Character = [%c]\n", c);
+			printf("Character = [%c]\n", c);
 
 		return 0;
 	}
@@ -407,11 +399,13 @@ Comments
 		int e; // Element
 
 		for (e = 12; e < 24; ++e) { // 1 tabs
-			printf ("e = [%d]\n"); // 2 tabs: Nothing special about this comment,
+			printf("e = [%d]\n"); // 2 tabs: Nothing special about this comment,
 			                       // 2 tabs + 23 spaces: except that it is long
-			printf ("e != [%d]\n", e - 3); // 2 tabs
+			printf("e != [%d]\n", e - 3); // 2 tabs
 		} // 1 tabs
 	```
+
+	// N.B. The above is a great demonstation of why you should have your editor write out tabs as 4 spaces instead of tab.
 
 Organization
 ------------
@@ -420,7 +414,7 @@ Organization
 	1.	Comments
 	2.	Libraries
 	3.	Symbolic Constants
-	4.	Macros
+	4.	Macros and enum's
 	5.	Structs
 	6.	External Variables
 	7.	Function Prototypes
