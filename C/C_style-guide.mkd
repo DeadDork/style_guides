@@ -33,34 +33,34 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 // External Variables
 
 int x = 1; // The first integer to add in the print_test function.
+           // Because x is defined in--and at the top of--the same file where it
+           // is used, there is no need to declare it, too.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Function Prototypes
 
 // Prints out x + y + z twice:
-//// 1) prints the sums of the input in the argument section of printf()
+//// 1) Prints the sums of the input in the argument section of printf().
 //
-//// 2) does the same, but lets a macro do the "heavy" lifting instead.
-void print_test(int y, int z);
+//// 2) Does the same as (1), but lets a macro do the "heavy" lifting instead.
+void print_test(int, int);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Functions
 
 void print_test(int y, int z) {
-	extern int x;
-
 	printf("printf:\n\tx + y + z = [%d]\n", x + y + z);
 	PrintExpr(x + y + z);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 int main(void) {
-	int * y, z; // I fully realize how silly it is to make y into a pointer here.
+	int * y, z;
 
-	// Sets y
-	for (*y = 0; *y < 9; ++(*y)); // note how precedence is handled in expr3
+	// Set y
+	for (*y = 0; *y < 9; ++(*y));
 
-	// Sets z {{{
+	// Set z {{{
 	while (z != 90) {
 		if (z < 80)
 			z = z + 10;
@@ -71,10 +71,10 @@ int main(void) {
 	}
 	// }}}
 
-	// Prints x + y + z
+	// Print x + y + z
 	print_test(*y, z);
 
-	// Prints the result of an arbitrary, complex expression
+	// Print the result of an arbitrary, complex expression
 	printf("%f\n", 3 + 4 sin(fabs(x)) * (log(10) / pow(2, 3)));
 
 	return 0;
@@ -87,7 +87,7 @@ Variables & Arrays
 *	Declarations should have a space between the function declaration. E.G.
 
 	```c
-	char s[] = "Hello"; // String
+	char s[] = "Hello";
 	```
 
 *	Pointers should be declared in the form of
@@ -103,9 +103,8 @@ Variables & Arrays
 	```
 
 	I have a number of reasons for this:
-	*	It can be easily read backwards, per the example above, as "c points to a char".
-	*	This form actually makes sense (compare it to the K & R style, which is ambiguous as all hell when it comes to dereferencing & pointers).
-	*	The declaration of a pointer to type can easily be distinguished from dereferencing a variable (though it does risk ambiguity with multiplication, but hopefully the context is sufficient).
+	*	It can be easily read backwards. For instance, the example above would be read as "`c` points to a char".
+	*	This form makes it easy to distinguish pointer declaration from dereferencing (though it does still rely on context to distinguish declaration from multiplication, when I started out I found the latter less confusing).
 	*	It lends itself to declaring multiple variables on the same line, e.g.:
 
 		```c
@@ -133,10 +132,10 @@ Variables & Arrays
 	int nums[4]; // Numbers
 	double dblsndbls[2][2]; // Doubles and doubles of doubles
 
-	nums[0] = 10;
-	nums[1] = 20;
-	nums[2] = 30;
-	nums[3] = 40;
+	nums[0] = 0;
+	nums[1] = 10;
+	nums[2] = 20;
+	nums[3] = 30;
 
 	dblsndbls[0][0] = 0.0;
 	dblsndbls[0][1] = 0.1;
@@ -168,7 +167,7 @@ Variables & Arrays
 	*	Generic short
 
 		```c
-		int sh;
+		short sh;
 		```
 
 	*	Generic integer
@@ -180,34 +179,34 @@ Variables & Arrays
 	*	Generic long
 
 		```c
-		int l;
+		long l;
 		```
 
 	*	Generic float
 
 		```c
-		int f;
+		float f;
 		```
 
 	*	Generic double
 
 		```c
-		int d;
+		double d;
 		```
 
 	*	Generic signed integer
 
 		```c
-		int si;
+		signed si;
 		```
 
 	*	Generic unsigned integer
 
 		```c
-		int ui;
+		unsigned ui;
 		```
 
-	*	Generic temporary (for all types, but in this case a char)
+	*	Generic temporary variable of any type (in this case, a char)
 
 		```c
 		char t;
@@ -222,7 +221,7 @@ Functions
 	printf( "hello\n" );
 	```
 
-	I finally broke down. Intellectually, I agree with it wholeheartedly, as it does solve a lot of style problems very neatly. However, in practice I find that it makes for hideous code. I much prefer a style very similar to K & R's tight style:
+	I finally broke down after coding in it for a few weeks. Intellectually, I agree with it wholeheartedly, as it does solve a lot of style problems very neatly. However, in practice I find that it makes for hideous code. I much prefer a style very similar to K & R's tight style:
 
 	*	All function aguments are tightly bound to the function name. This way, complex expressions containing functions with return values are easier to parse. Moreover, you get fewer style errors due to forgotten spaces. E.G.
 
@@ -230,7 +229,7 @@ Functions
 		double x = 3 + 7 * (log(10) / log(2));
 		```
 
-	*	`while`, `for`, `if`, etc. are actually not functions, but rather are statements. This distinction is emphasized with a space between their "arguments". E.G.
+	*	`while`, `for`, `if`, etc. are actually not functions, but rather statements. This distinction is emphasized with a space between their "arguments". E.G.
 
 		```c
 		if (episode == 20)
@@ -255,7 +254,7 @@ Functions
 Control Functions
 -----------------
 
-*	Again, control statemnts are not functions per se in C, which is indicated with a space between their "arguments", e.g.
+*	Again, control statements are not functions per se in C, which is indicated with a space between their "arguments", e.g.
 
 	```c
 	if (x > 1)
@@ -274,7 +273,7 @@ Control Functions
 
 	This way the indentation is more meaningful and funtions are tight.
 
-*	The `else` function follows this convention, too. E.G.:
+*	The `else` statement follows this convention, too. E.G.:
 
 	```c
 	if (x == 1) {
@@ -291,7 +290,7 @@ Control Functions
 
 	(My previous style was simply too verbose. Also, it separated the control function too much from it's body.)
 
-*	Control functions one-liners follow the K & R style. E.G.
+*	Control function one-liners follow the K & R style. E.G.
 
 	```c
 	if (x == 1)
@@ -355,41 +354,14 @@ Comments
 	// }}}
 	```
 
-*	Function prototypes--especially as they appear in header files--should a stub description of the function, e.g.:
+*	Function prototypes--especially as they appear in header files--should have a stub description of the function, e.g.:
 
 	```c
-	// Adds the two arguments together.
-	float add(float x, float y);
+	// Adds the two floats together.
+	float add(float, float);
 	```
 
 	N.B. In the previous style, I would write detailed descriptions. In practice, though, I found this to be a hugh PITA that was invariably unnecessary.
-
-*	In general, give variables descriptive comments at their declaration, e.g.:
-
-	```c
-	int main(void) {
-		int c; // Character
-
-		while((c = getchar()) != EOF)
-			printf("Character = [%c]\n", c);
-
-		return 0;
-	}
-	```
-
-*	Non-obvious code-blocks should have a comment describing the action taking place, so that when you come back to it in 3 months, it doesn't look like [Linear B](https://en.wikipedia.org/wiki/Linear_B). E.G. same as the above example, but with a description:
-
-	```c
-	int main(void) {
-		int c; // Character
-
-		// Reads one character at a time from STDIN and prints it to STDOUT
-		while ((c = getchar()) != EOF)
-			printf("Character = [%c]\n", c);
-
-		return 0;
-	}
-	```
 
 *	For overlong, single line comments, break the comment into multiple lines so that they fit within the 80 spaces. Each line after the first gets indented same as the first, then filled with spaces so that the `//` line up. E.G.
 
@@ -400,12 +372,14 @@ Comments
 
 		for (e = 12; e < 24; ++e) { // 1 tabs
 			printf("e = [%d]\n"); // 2 tabs: Nothing special about this comment,
-			                       // 2 tabs + 23 spaces: except that it is long
+			                      // 2 tabs + 23 spaces: except that it is long
 			printf("e != [%d]\n", e - 3); // 2 tabs
 		} // 1 tabs
 	```
 
 	// N.B. The above is a great demonstation of why you should have your editor write out tabs as 4 spaces instead of tab.
+
+*	In general, these days I try to write as little commentary as possible. For one, it's a huge PITA. Second, I've come to believe that it's better to write code that is clear than code that is well documented.
 
 Organization
 ------------
