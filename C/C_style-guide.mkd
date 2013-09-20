@@ -55,10 +55,11 @@ void print_test(int y, int z) {
 int main(void) {
 	int *y, z;
 
+	// Sets y & z {{{
 	// Set y
 	for (*y = 0; *y < 9; ++(*y));
 
-	// Set z {{{
+	// Set z
 	while (z != 90) {
 		if (z < 80)
 			z = z + 10;
@@ -122,7 +123,7 @@ Variables & Arrays
 		int epsilon, zeta, eta; // Greek 'E', Greek 'Z', Greek 'E'
 	```
 
-*	Arrays don't have spaces in their element list. E.G.
+*	Arrays don't have spaces in their element list, e.g.
 
 	```c
 	int nums[4]; // Numbers
