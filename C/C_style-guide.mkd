@@ -33,8 +33,6 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 // External Variables
 
 int x = 1; // The first integer to add in the print_test function.
-           // Because x is defined in--and at the top of--the same file where it
-           // is used, there is no need to declare it, too.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Function Prototypes
@@ -55,7 +53,7 @@ void print_test(int y, int z) {
 
 ////////////////////////////////////////////////////////////////////////////////
 int main(void) {
-	int * y, z;
+	int *y, z;
 
 	// Set y
 	for (*y = 0; *y < 9; ++(*y));
@@ -84,40 +82,38 @@ int main(void) {
 Variables & Arrays
 ------------------
 
-*	Declarations should have a space between the function declaration. E.G.
+*	Declarations & definitions should be spacey, e.g.
 
 	```c
 	char s[] = "Hello";
 	```
 
-*	Pointers should be declared in the form of
+*	Pointers follow convention, i.e.
 
 	```c
-	type * var;
+	type *var;
 	```
 
 	For example:
 
 	```c
-	char * c;
+	char *c;
 	```
 
-	I have a number of reasons for this:
-	*	It can be easily read backwards. For instance, the example above would be read as "`c` points to a char".
-	*	This form makes it easy to distinguish pointer declaration from dereferencing (though it does still rely on context to distinguish declaration from multiplication, when I started out I found the latter less confusing).
-	*	It lends itself to declaring multiple variables on the same line, e.g.:
+	(While this did confuse me starting out, as I had issues decoupling dereferencing a pointer and declaring it, when I began referencing man pages heavily, the congnitive headache was no longer worth a style difference.)
 
-		```c
-		char a, b, * c, * d, ** f, *** g;
-		```
-
-*	Variables & arrays should either have an obviously descriptive name or have a comment describing their name. Either way, their purpose should be obvious. E.G.
+*	Variables & arrays should be named well. A good name is worth 10x its length in good documentation, e.g.
 
 	```c
-	int e, numstr; // Element
+	char string[3];
+	int element = 0;
+
+	string[element++] = 'h';
+	string[element++] = 'i';
+	string[element] = '\0';
 	```
 
-*	Variables & arrays of the same type should be declared on the same line--permitted that they and their respective comments fit in 80 spaces. If they don't, they should be split over multiple lines so that they do. E.G.
+*	Variables & arrays of the same type should be declared on the same line--permitted that they and any of their respective comments fit inside 80 spaces. If they don't, they should be split over multiple lines so that they do, e.g.
 
 	```c
 	////////////////////////////////////////////////////////////////////////////////
@@ -143,12 +139,12 @@ Variables & Arrays
 	dblsndbls[1][1] = 1.1;
 	```
 
-*	I use the following generic variable names:
+*	Ideally, variables should be named well. However, if using an obvious, throwaway variable, generic variables should use the following convention:
 
 	*	Generic void
 
 		```c
-		void * v;
+		void *v;
 		```
 
 	*	Generic char
@@ -160,8 +156,8 @@ Variables & Arrays
 	*	Generic string
 
 		```c
-		char * s;
-		//char s[maxstr];
+		char *s;
+		//char s[100];
 		```
 
 	*	Generic short
@@ -179,7 +175,7 @@ Variables & Arrays
 	*	Generic long
 
 		```c
-		long l;
+		long lo;
 		```
 
 	*	Generic float
@@ -212,31 +208,30 @@ Variables & Arrays
 		char t;
 		```
 
+	*	If I need two or more generic variables of the same type, I number the variables, e.g.
+
+		``c
+		char c1, c2;
+		int i1, i2, i3;
+		```
+
 Functions
 ---------
 
-*	After initially following IBM's spacey style, e.g.
+*	All function aguments are tightly bound to the function name. This way, complex expressions containing functions with return values are easier to parse. Moreover, you get fewer style errors due to forgotten spaces, e.g.
 
 	```c
-	printf( "hello\n" );
+	double x = 3 + 7 * (log(10) / log(2));
 	```
 
-	I finally broke down after coding in it for a few weeks. Intellectually, I agree with it wholeheartedly, as it does solve a lot of style problems very neatly. However, in practice I find that it makes for hideous code. I much prefer a style very similar to K & R's tight style:
+*	`while`, `for`, `if`, etc. are statements, not functions. This distinction is emphasized with a space and their test argument, e.g.
 
-	*	All function aguments are tightly bound to the function name. This way, complex expressions containing functions with return values are easier to parse. Moreover, you get fewer style errors due to forgotten spaces. E.G.
+	```c
+	if (episode == 20)
+		printf("Hello, boy. Hahahahahahaha!!!\n"); // Why, yes, I *am* a big fan of Cowboy Bebop!
+	```
 
-		```c
-		double x = 3 + 7 * (log(10) / log(2));
-		```
-
-	*	`while`, `for`, `if`, etc. are actually not functions, but rather statements. This distinction is emphasized with a space between their "arguments". E.G.
-
-		```c
-		if (episode == 20)
-			printf("Hello, boy. Hahahahahahaha!!!\n"); // Why, yes, I *am* a big fan of Cowboy Bebop!
-		```
-
-*	Nested parentheses do not receive a space. This is hard on the eyes, sure, but a decent text editor with syntax highlighting overcomes this easily.
+*	Nested parentheses do not receive a space.
 
 	```c
 	printf("%d\n", pow(2, 3));
@@ -254,7 +249,7 @@ Functions
 Control Functions
 -----------------
 
-*	Again, control statements are not functions per se in C, which is indicated with a space between their "arguments", e.g.
+*	Again, control functions receive a space, e.g.
 
 	```c
 	if (x > 1)
@@ -262,7 +257,7 @@ Control Functions
 	}
 	```
 
-*	Multi-liners should use curly braces, per the following:
+*	Multi-liners should be braced on the same line, e.g.
 
 	```c
 	if (x == 1) {
@@ -271,9 +266,7 @@ Control Functions
 	}
 	```
 
-	This way the indentation is more meaningful and funtions are tight.
-
-*	The `else` statement follows this convention, too. E.G.:
+*	The `else` statement follows this convention, too, e.g.
 
 	```c
 	if (x == 1) {
@@ -288,9 +281,7 @@ Control Functions
 	}
 	```
 
-	(My previous style was simply too verbose. Also, it separated the control function too much from it's body.)
-
-*	Control function one-liners follow the K & R style. E.G.
+*	Control function one-liners follow the K & R style, e.g.
 
 	```c
 	if (x == 1)
@@ -315,7 +306,7 @@ Comments
 	// This is the first item in this section
 	```
 
-*	I make an effort to not exceed 80 characters per line.
+*	I make an effort to not exceed 80 characters per line (this is not always possible).
 
 *	The `main` section is special, in that it only has the horizontal "bar". E.G.:
 
@@ -324,8 +315,6 @@ Comments
 	int main(void) {
 		printf("Wut?!\n");
 	```
-
-	This is because the `main` is very obvious.
 
 *	Comments in the comments section should be separate by at least one line break. If they are sufficiently decoupled, two. Both should be commented out with a `//`.
 
@@ -345,23 +334,32 @@ Comments
 	free(s); // Always free memory
 	```
 
-*	Code block description comments should be commented out with `//`, a description, a `{{{`, and at the end of the block a `// }}}`. E.G.:
+*	Comments that refer to a whole block of code go above the code block.
 
 	```c
-	// Prints 'Hello, world' {{{
+	// Prints 'Hello, world'
 	char s[] = "Hello, world\n";
 	printf("%s", s);
+	```
+
+*	Comments that refer to several blocks of code go at the top of the block set, and are encapsulated, e.g.
+
+	```c
+	// A series of obfuscated prints {{{
+	// Prints out "hi"
+	printf("%c%c\n", 104, 105);
+
+	// Prints out "bye"
+	printf("%c%c%c\n", 98, 121, 101);
 	// }}}
 	```
 
-*	Function prototypes--especially as they appear in header files--should have a stub description of the function, e.g.:
+*	Care should be taken to name functions informatively. Sometimes this isn't feasible, though, in which case a short description should be added above the function prototype, e.g.
 
 	```c
 	// Adds the two floats together.
 	float add(float, float);
 	```
-
-	N.B. In the previous style, I would write detailed descriptions. In practice, though, I found this to be a hugh PITA that was invariably unnecessary.
 
 *	For overlong, single line comments, break the comment into multiple lines so that they fit within the 80 spaces. Each line after the first gets indented same as the first, then filled with spaces so that the `//` line up. E.G.
 
@@ -371,13 +369,13 @@ Comments
 		int e; // Element
 
 		for (e = 12; e < 24; ++e) { // 1 tabs
-			printf("e = [%d]\n"); // 2 tabs: Nothing special about this comment,
-			                      // 2 tabs + 23 spaces: except that it is long
+			printf("e = [%d]\n"); // 2 tabs: nothing special about this comment,
+			                      // 2 tabs + 23 spaces: special because it lines up
 			printf("e != [%d]\n", e - 3); // 2 tabs
 		} // 1 tabs
 	```
 
-	// N.B. The above is a great demonstation of why you should have your editor write out tabs as 4 spaces instead of tab.
+	(N.B. The above is a great demonstation of why you should have your editor write out tabs as 4 spaces instead of tab.)
 
 *	In general, these days I try to write as little commentary as possible. For one, it's a huge PITA. Second, I've come to believe that it's better to write code that is clear than code that is well documented.
 
@@ -395,15 +393,9 @@ Organization
 	8.	Functions
 	9.	Main
 
-*	Large, multi-file programs are organized as follows:
-	*	Each file gets a *Comments* section.
-	*	Header files get the Symbolic Constants, Macros, External Variables, and Functional Prototypes (and occasionally also any relevant *#include*'s, e.g. *stddef.h* when using funky types).
-	*	Function files get Functions and their necessary *#include*'s.
-	*	A main file gets the main function and any necessary *#include*'s.
-
-	Since large projects are organized differently depending on the size and use, this is just a general guide (for instance, a function file may call on a function in another file, the function of which may call on yet another function in yet another file).
+*	While I don't have an organizational preference for large, multi-file programs, great effort should go into making their organization as sane, clear, simple, and obvious as possible.
 
 Variable & Function Naming
 --------------------------
 
-I have yet to determine variable & function naming conventions. C convention generally runs towards minimal length (e.g. 's' to indicate a variable for a string), apparently because back in the good ol' days vars couldn't be longer than 8 bits or some such. Clearly we're past that, but the convention has stuck. Most times, this isn't a problem, but sometimes it makes code unreadable. Accordingly, I've toyed with going with the first letters of a short description separated by underscores (e.g. "dynamic string" = 'd\_s'), full descriptive names (e.g. 'dynamic\_string'), etc. I'm still undecided what I'm going to go with. I'll update this section when I develop some kind of preference.
+I have concluded that the value of good names exceed the memory cost. Perhaps one day I will work on a microcontroller, etc. where the length of a name matters, in which case I will revert to a naming convention similar to K & R's, and even then only for that project. Except for that one exception, names should make the purpose of the object obvious and easy to parse.
