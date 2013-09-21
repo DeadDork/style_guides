@@ -10,7 +10,7 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 ////////////////////////////////////////////////////////////////////////////////
 // Comments
 
-// This is simple C program that demonstrates my preferred C coding style.
+// This is a simple C program that demonstrates my preferred C coding style.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Libraries
@@ -21,13 +21,28 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 ////////////////////////////////////////////////////////////////////////////////
 // Symbolic Constants
 
-#define FALSE 0
-#define TRUE 1
+#define HRNG 1834 // Human Random Number Generator value
 
 ////////////////////////////////////////////////////////////////////////////////
 // Macros
 
 #define PrintExpr(x) (printf("PrintExpr:\n\t%s = [%d]\n", #x, (x)))
+
+////////////////////////////////////////////////////////////////////////////////
+// Enums
+
+typedef enum boolean {
+	FALSE,
+	TRUE
+} Bool;
+
+////////////////////////////////////////////////////////////////////////////////
+// Structs
+
+typedef struct point {
+	int x;
+	int y;
+} TwoD;
 
 ////////////////////////////////////////////////////////////////////////////////
 // External Variables
@@ -54,6 +69,8 @@ void print_test(int y, int z) {
 ////////////////////////////////////////////////////////////////////////////////
 int main(void) {
 	int *y, z;
+	TwoD p;
+	Bool v;
 
 	// Sets y & z {{{
 	// Set y
@@ -74,7 +91,16 @@ int main(void) {
 	print_test(*y, z);
 
 	// Print the result of an arbitrary, complex expression
-	printf("%f\n", 3 + 4 sin(fabs(x)) * (log(10) / pow(2, 3)));
+	printf("%f\n", 3 + 4 * sin(fabs(HRNG)) * (log(10) / pow(2, 3)));
+
+	// Does--or doesn't--print, depending on the default value
+	if (v)
+		printf("Looks like the default is TRUE!\n");
+	else
+		printf("Looks like the default is FALSE!\n");
+
+	// Prints the value of a point
+	printf("Point p:\n\tp.x = %d\n\tp.y = %d\n", p.x, p.y);
 
 	return 0;
 }
@@ -387,12 +413,13 @@ Organization
 	1.	Comments
 	2.	Libraries
 	3.	Symbolic Constants
-	4.	Macros and enum's
-	5.	Structs
-	6.	External Variables
-	7.	Function Prototypes
-	8.	Functions
-	9.	Main
+	4.	Macros
+	5.	Enums
+	6.	Structs
+	7.	External Variables
+	8.	Function Prototypes
+	9.	Functions
+	10.	Main
 
 *	While I don't have an organizational preference for large, multi-file programs, great effort should go into making their organization as sane, clear, simple, and obvious as possible.
 
