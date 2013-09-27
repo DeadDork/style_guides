@@ -127,7 +127,7 @@ Variables & Arrays
 	char *c;
 	```
 
-	(While this did confuse me starting out, as I had issues decoupling dereferencing a pointer and declaring it, when I began referencing man pages heavily, the congnitive headache was no longer worth a style difference.)
+	(This form can be confusing given that a declaration of a pointer uses a `\*` as well as the unary operator dereferencing a pointer. This confusion can be cleared up if you think of the declaration as being to a generic pointer that if dereferenced then it accesses an object of the type in the declaration.)
 
 *	Variables & arrays should be named well. A good name is worth 10x its length in good documentation, e.g.
 
