@@ -7,6 +7,7 @@ BIN = test
 OBJ = $(BIN).o
 $(BIN) : $(OBJ)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+$(OBJ).o : $(OBJ).c
 
 .PHONY : clean
 clean :
