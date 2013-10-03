@@ -1,3 +1,5 @@
 *.sw[op]
 *~
 *.dSYM
+test
+*.o
