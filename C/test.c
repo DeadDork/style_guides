@@ -20,7 +20,7 @@
 #define PrintParameterValue(x, y, z) printf("%d + %d + %d = [%d]\n", (x), (y), (z), (x) + (y) + (z))
 
 ////////////////////////////////////////////////////////////////////////////////
-// Global Enumerations
+// Global Types
 
 typedef enum boolean {
 	FALSE,

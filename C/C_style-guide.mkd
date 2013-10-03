@@ -29,7 +29,7 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 #define PrintParameterValue(x, y, z) printf("%d + %d + %d = [%d]\n", (x), (y), (z), (x) + (y) + (z))
 
 ////////////////////////////////////////////////////////////////////////////////
-// Global Enumerations
+// Global Types
 
 typedef enum boolean {
 	FALSE,
