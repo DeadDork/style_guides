@@ -182,10 +182,10 @@ Macros
 *	Macro names follow the same rules used for variable names, with the exceptions that the first letter of descriptive words in the name is capitalized and no `\_` is used, e.g.
 
 	```c
-	#define GenericSwap(type, source, target) {\\
-		(type) place_holder = source;\\
-		target = source;\\
-		source = place_holder;\\
+	#define GenericSwap(type, source, target) {\
+		(type) place_holder = source;\
+		target = source;\
+		source = place_holder;\
 	}
 	```
 
