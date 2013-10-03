@@ -4,64 +4,50 @@
 // This is a simple C program that demonstrates my preferred C coding style.
 
 ////////////////////////////////////////////////////////////////////////////////
-// Libraries
+// Global Libraries
 
 #include <stdio.h>
 #include <math.h>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Symbolic Constants
+// Global Symbolic Constants
 
 #define HRNG 1834 // Human Random Number Generator value
 
 ////////////////////////////////////////////////////////////////////////////////
-// Macros
+// Global Macros
 
-#define PrintExpr(x) (printf("PrintExpr:\n\t%s = [%d]\n", #x, (x)))
+#define PrintParameterValue(x, y, z) printf("%d + %d + %d = [%d]\n", (x), (y), (z), (x) + (y) + (z))
 
 ////////////////////////////////////////////////////////////////////////////////
-// Enums
+// Global Enumerations
 
 typedef enum boolean {
 	FALSE,
 	TRUE
-} Bool;
+} Boolean;
 
 ////////////////////////////////////////////////////////////////////////////////
-// Structs
+// Global Structs
 
 typedef struct point {
-	int x;
-	int y;
-} TwoD;
+	int axis_x;
+	int axis_y;
+} TwoDimension;
 
 ////////////////////////////////////////////////////////////////////////////////
-// External Variables
+// Global Functions
 
-int x = 1; // The first integer to add in the print_test function.
-
-////////////////////////////////////////////////////////////////////////////////
-// Function Prototypes
-
-// Prints out x + y + z twice:
-//// 1) Prints the sums of the input in the argument section of printf().
+// Prints out the expression & the value of the expression:
+//// 1) Uses printf()
 //
-//// 2) Does the same as (1), but lets a macro do the "heavy" lifting instead.
+//// 2) Uses PrintParamenterValue().
 void print_test(int, int);
 
 ////////////////////////////////////////////////////////////////////////////////
-// Functions
 
-void print_test(int y, int z) {
-	printf("printf:\n\tx + y + z = [%d]\n", x + y + z);
-	PrintExpr(x + y + z);
-}
-
-////////////////////////////////////////////////////////////////////////////////
 int main(void) {
 	int *y, z;
-	TwoD p;
-	Bool v;
 
 	// Sets y & z {{{
 	// Set y
@@ -78,20 +64,28 @@ int main(void) {
 	}
 	// }}}
 
-	// Print x + y + z
+	// Print x + y + z, where x is an external variable
 	print_test(*y, z);
 
 	// Print the result of an arbitrary, complex expression
 	printf("%f\n", 3 + 4 * sin(fabs(HRNG)) * (log(10) / pow(2, 3)));
 
 	// Does--or doesn't--print, depending on the default value
-	if (v)
+	Boolean truth_value;
+	if (truth_value)
 		printf("Looks like the default is TRUE!\n");
 	else
 		printf("Looks like the default is FALSE!\n");
 
 	// Prints the value of a point
-	printf("Point p:\n\tp.x = %d\n\tp.y = %d\n", p.x, p.y);
+	TwoDimension point;
+	printf("Point:\n\tpoint.axis_x = %d\n\tpoint.axis_y = %d\n", point.axis_x, point.axis_y);
 
 	return 0;
+}
+
+int x = 1; // The first integer to add in the print_test function.
+void print_test(int y, int z) {
+	printf("%d + %d + %d = [%d]\n", x, y, z, x + y + z);
+	PrintParameterValue(x, y, z);
 }

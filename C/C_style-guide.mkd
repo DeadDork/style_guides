@@ -13,64 +13,50 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 // This is a simple C program that demonstrates my preferred C coding style.
 
 ////////////////////////////////////////////////////////////////////////////////
-// Libraries
+// Global Libraries
 
 #include <stdio.h>
 #include <math.h>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Symbolic Constants
+// Global Symbolic Constants
 
 #define HRNG 1834 // Human Random Number Generator value
 
 ////////////////////////////////////////////////////////////////////////////////
-// Macros
+// Global Macros
 
-#define PrintExpr(x) (printf("PrintExpr:\n\t%s = [%d]\n", #x, (x)))
+#define PrintParameterValue(x, y, z) printf("%d + %d + %d = [%d]\n", (x), (y), (z), (x) + (y) + (z))
 
 ////////////////////////////////////////////////////////////////////////////////
-// Enums
+// Global Enumerations
 
 typedef enum boolean {
 	FALSE,
 	TRUE
-} Bool;
+} Boolean;
 
 ////////////////////////////////////////////////////////////////////////////////
-// Structs
+// Global Structs
 
 typedef struct point {
-	int x;
-	int y;
-} TwoD;
+	int axis_x;
+	int axis_y;
+} TwoDimension;
 
 ////////////////////////////////////////////////////////////////////////////////
-// External Variables
+// Global Functions
 
-int x = 1; // The first integer to add in the print_test function.
-
-////////////////////////////////////////////////////////////////////////////////
-// Function Prototypes
-
-// Prints out x + y + z twice:
-//// 1) Prints the sums of the input in the argument section of printf().
+// Prints out the expression & the value of the expression:
+//// 1) Uses printf()
 //
-//// 2) Does the same as (1), but lets a macro do the "heavy" lifting instead.
+//// 2) Uses PrintParamenterValue().
 void print_test(int, int);
 
 ////////////////////////////////////////////////////////////////////////////////
-// Functions
 
-void print_test(int y, int z) {
-	printf("printf:\n\tx + y + z = [%d]\n", x + y + z);
-	PrintExpr(x + y + z);
-}
-
-////////////////////////////////////////////////////////////////////////////////
 int main(void) {
 	int *y, z;
-	TwoD p;
-	Bool v;
 
 	// Sets y & z {{{
 	// Set y
@@ -87,22 +73,30 @@ int main(void) {
 	}
 	// }}}
 
-	// Print x + y + z
+	// Print x + y + z, where x is an external variable
 	print_test(*y, z);
 
 	// Print the result of an arbitrary, complex expression
 	printf("%f\n", 3 + 4 * sin(fabs(HRNG)) * (log(10) / pow(2, 3)));
 
 	// Does--or doesn't--print, depending on the default value
-	if (v)
+	Boolean truth_value;
+	if (truth_value)
 		printf("Looks like the default is TRUE!\n");
 	else
 		printf("Looks like the default is FALSE!\n");
 
 	// Prints the value of a point
-	printf("Point p:\n\tp.x = %d\n\tp.y = %d\n", p.x, p.y);
+	TwoDimension point;
+	printf("Point:\n\tpoint.axis_x = %d\n\tpoint.axis_y = %d\n", point.axis_x, point.axis_y);
 
 	return 0;
+}
+
+int x = 1; // The first integer to add in the print_test function.
+void print_test(int y, int z) {
+	printf("%d + %d + %d = [%d]\n", x, y, z, x + y + z);
+	PrintParameterValue(x, y, z);
 }
 ```
 
@@ -112,22 +106,22 @@ Variables & Arrays
 *	Declarations & definitions should be spacey, e.g.
 
 	```c
-	char s[] = "Hello";
+	char string[] = "Hello";
 	```
 
 *	Pointers follow convention, i.e.
 
 	```c
-	type *var;
+	type *variable;
 	```
 
-	For example:
+	For example
 
 	```c
-	char *c;
+	char *character;
 	```
 
-	(This form can be confusing given that a declaration of a pointer uses a `\*` as well as the unary operator dereferencing a pointer. This confusion can be cleared up if you think of the declaration as being to a generic pointer that if dereferenced then it accesses an object of the type in the declaration.)
+	(This form can be confusing given that a declaration of a pointer uses a `\*` as well as the unary operator dereferencing a pointer. This confusion can be cleared up if one thinks of the declaration as being to a generic pointer that if dereferenced accesses an object of the type in the declaration.)
 
 *	Variables & arrays should be named well. A good name is worth 10x its length in good documentation, e.g.
 
@@ -140,107 +134,59 @@ Variables & Arrays
 	string[element] = '\0';
 	```
 
+*	A name is a category, and complex names can be created by affixing more categories with an `\_`. The idea is to move from general to specific, e.g.
+
+	```c
+	int line, line_count, line_count_max = 17;
+	```
+
+*	Don't abbreviate names.
+
+	The exception to this are math variables. Oftentimes math functions can be so abstract no good descriptive name can be used, in which case a letter will do, e.g.
+
+	```c
+	int x, y;
+
+	x = sin(tan(y) - 17);
+	```
+
 *	Variables & arrays of the same type should be declared on the same line--permitted that they and any of their respective comments fit inside 80 spaces. If they don't, they should be split over multiple lines so that they do, e.g.
 
 	```c
-	////////////////////////////////////////////////////////////////////////////////
 	int main(void) {
-		int alpha, beta, gamma, delta; // Greek 'A', Greek 'B', Greek 'G', Greek 'D'
-		int epsilon, zeta, eta; // Greek 'E', Greek 'Z', Greek 'E'
+		int alpha, beta, gamma, delta, epsilon; // Greek 'A', 'B', 'G', 'D', 'E', 
+		int zeta, eta;                          // 'Z', 'E'
 	```
 
 *	Arrays don't have spaces in their element list, e.g.
 
 	```c
-	int nums[4]; // Numbers
-	double dblsndbls[2][2]; // Doubles and doubles of doubles
+	int integer_array[4]; // Numbers
+	double double_array[2][2];
 
-	nums[0] = 0;
-	nums[1] = 10;
-	nums[2] = 20;
-	nums[3] = 30;
+	integer_array[0] = 0;
+	integer_array[1] = 10;
+	integer_array[2] = 20;
+	integer_array[3] = 30;
 
-	dblsndbls[0][0] = 0.0;
-	dblsndbls[0][1] = 0.1;
-	dblsndbls[1][0] = 1.0;
-	dblsndbls[1][1] = 1.1;
+	double_array[0][0] = 0.0;
+	double_array[0][1] = 0.1;
+	double_array[1][0] = 1.0;
+	double_array[1][1] = 1.1;
 	```
 
-*	Ideally, variables should be named well. However, if using an obvious, throwaway variable, generic variables should use the following convention:
+Macros
+------
 
-	*	Generic void
+*	Macro names follow the same rules used for variable names, with the exceptions that the first letter of descriptive words in the name is capitalized and no `\_` is used, e.g.
 
-		```c
-		void *v;
-		```
-
-	*	Generic char
-
-		```c
-		char c;
-		```
-
-	*	Generic string
-
-		```c
-		char *s;
-		//char s[100];
-		```
-
-	*	Generic short
-
-		```c
-		short sh;
-		```
-
-	*	Generic integer
-
-		```c
-		int i;
-		```
-
-	*	Generic long
-
-		```c
-		long lo;
-		```
-
-	*	Generic float
-
-		```c
-		float f;
-		```
-
-	*	Generic double
-
-		```c
-		double d;
-		```
-
-	*	Generic signed integer
-
-		```c
-		signed si;
-		```
-
-	*	Generic unsigned integer
-
-		```c
-		unsigned ui;
-		```
-
-	*	Generic temporary variable of any type (in this case, a char)
-
-		```c
-		char t;
-		```
-
-	*	If I need two or more generic variables of the same type, I number the variables, e.g.
-
-		``c
-		char c1, c2;
-		int i1, i2, i3;
-		```
+	```c
+	#define GenericSwap(type, source, target) {\\
+		(type) place_holder = source;\\
+		target = source;\\
+		source = place_holder;\\
+	}
+	```
 
 Functions
 ---------
@@ -254,11 +200,11 @@ Functions
 *	`while`, `for`, `if`, etc. are statements, not functions. This distinction is emphasized with a space and their test argument, e.g.
 
 	```c
-	if (episode == 20)
-		printf("Hello, boy. Hahahahahahaha!!!\n"); // Why, yes, I *am* a big fan of Cowboy Bebop!
+	if (episode == 20 && cowboy_bebop_fan)
+		printf("Hello, boy. Hahahahahahaha!!!\n");
 	```
 
-*	Nested parentheses do not receive a space.
+*	Nested parentheses do not receive a space, e.g.
 
 	```c
 	printf("%d\n", pow(2, 3));
@@ -279,9 +225,8 @@ Control Functions
 *	Again, control functions receive a space, e.g.
 
 	```c
-	if (x > 1)
-		printf("%f\n", 2 * 3 / log(8));
-	}
+	if (joke_on_me)
+		printf("Joke's on you!\n");
 	```
 
 *	Multi-liners should be braced on the same line, e.g.
@@ -335,14 +280,6 @@ Comments
 
 *	I make an effort to not exceed 80 characters per line (this is not always possible).
 
-*	The `main` section is special, in that it only has the horizontal "bar". E.G.:
-
-	```C
-	////////////////////////////////////////////////////////////////////////////////
-	int main(void) {
-		printf("Wut?!\n");
-	```
-
 *	Comments in the comments section should be separate by at least one line break. If they are sufficiently decoupled, two. Both should be commented out with a `//`.
 
 	```C
@@ -365,7 +302,7 @@ Comments
 
 	```c
 	// Prints 'Hello, world'
-	char s[] = "Hello, world\n";
+	char *s = "Hello, world\n";
 	printf("%s", s);
 	```
 
@@ -381,11 +318,11 @@ Comments
 	// }}}
 	```
 
-*	Care should be taken to name functions informatively. Sometimes this isn't feasible, though, in which case a short description should be added above the function prototype, e.g.
+*	Functions should follow the same naming rules as variables, e.g.
 
 	```c
-	// Adds the two floats together.
-	float add(float, float);
+	// Adds two floats together.
+	float add_float(float, float);
 	```
 
 *	For overlong, single line comments, break the comment into multiple lines so that they fit within the 80 spaces. Each line after the first gets indented same as the first, then filled with spaces so that the `//` line up. E.G.
@@ -404,26 +341,21 @@ Comments
 
 	(N.B. The above is a great demonstation of why you should have your editor write out tabs as 4 spaces instead of tab.)
 
-*	In general, these days I try to write as little commentary as possible. For one, it's a huge PITA. Second, I've come to believe that it's better to write code that is clear than code that is well documented.
+*	In general, these days I try to write as little commentary as possible. For one, it's a huge PITA. Second, I've come to believe that it's better to write code that is clear than code that is well documented. This especially shows in my change of heart with regards to naming.
 
 Organization
 ------------
 
-*	Small, single-file programs are organized accordingly:
+*	C gives a programmer a lot of flexibility with regards to organization. Personally, I prefer breaking a program into a comments section, a global section, and a code section, i.e.
+
 	1.	Comments
-	2.	Libraries
-	3.	Symbolic Constants
-	4.	Macros
-	5.	Enums
-	6.	Structs
-	7.	External Variables
-	8.	Function Prototypes
-	9.	Functions
-	10.	Main
+	2.	Global Libraries
+	3.	Global Symbolic Constants
+	4.	Global Macros
+	5.	Global Types
+	6.	Global Structs
+	7.	Global Variables
+	8.	Global Functions
+	9.	Code
 
-*	While I don't have an organizational preference for large, multi-file programs, great effort should go into making their organization as sane, clear, simple, and obvious as possible.
-
-Variable & Function Naming
---------------------------
-
-I have concluded that the value of good names exceed the memory cost. Perhaps one day I will work on a microcontroller, etc. where the length of a name matters, in which case I will revert to a naming convention similar to K & R's, and even then only for that project. Except for that one exception, names should make the purpose of the object obvious and easy to parse.
+	Considering that C compiles top-to-bottom, the code section entails a lot of flexibility. Refer to the *TL;DR* for an example of an external variable that is declared after `main()` (that way, it is less vulnerable to certain bugs).
