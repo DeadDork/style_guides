@@ -348,14 +348,14 @@ Organization
 
 *	C gives a programmer a lot of flexibility with regards to organization. Personally, I prefer breaking a program into a comments section, a global section, and a code section, i.e.
 
-	1.	Comments
-	2.	Global Libraries
-	3.	Global Symbolic Constants
-	4.	Global Macros
-	5.	Global Types
-	6.	Global Structs
-	7.	Global Variables
-	8.	Global Functions
-	9.	Code
+	1. Comments
+	2. Global Libraries
+	3. Global Symbolic Constants
+	4. Global Macros
+	5. Global Types
+	6. Global Structs
+	7. Global Variables
+	8. Global Functions
+	9. Code
 
 	Considering that C compiles top-to-bottom, the code section entails a lot of flexibility. Refer to the *TL;DR* for an example of an external variable that is declared after `main()` (that way, it is less vulnerable to certain bugs).
