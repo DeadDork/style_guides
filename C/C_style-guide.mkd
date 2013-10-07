@@ -315,7 +315,7 @@ Comments
 Organization
 ------------
 
-*	C's top-to-bottom compilation encourages an organic programming style, so strict programming organization gets in the way of good programming. That said, as programs grow, they should be library-fied. As such, for potentially large projects, it is good pratice to put header-y code at the top of the file. I've found the following header organization is best:
+*	C's top-to-bottom compilation encourages an organic programming style, so strict programming organization gets in the way of good programming. That said, as programs grow, they should be library-fied. As such, for potentially large projects, it is good practice to put header-y code at the top of the file. I've found the following header organization is best:
 	1.	Comments
 	2.	`#include`'s
 	3.	`#define`'s
@@ -326,6 +326,7 @@ Organization
 	This makes it much easier to library-fy an unwieldy source file, while also allowing pre-processing to do its magic without silly bugs. Further, in order to encourage clean code, I decided to stop labeling sections. The idea is that the sections should scream what they are, so labeling is not necessary. 
 
 	That said, for small projects that will never exceed a couple of hundred of lines of code, I strongly believe that the natural scoping and typing issues of the program should dictate its organization. This makes it much, much easier to program. For these shorter programs, I like to:
+
 	1.	Encapsulate functions with comment brackets.
 	2.	Organize pre-processing, typedef declarations, function prototypes, etc. so that they are declared ahead of the function, and in the order that they are processed inside the function (this makes coding functions much simpler: simply split the screen [in emacs or vim], and code top-to-bottom in the "header" part and the function part).
 
