@@ -1,10 +1,11 @@
-// This is a simple C program that demonstrates my preferred C coding style.
+// This is a simple--and ugly--C program that demonstrates my preferred C coding style.
 
-#include <stdio.h>
+// main() {{{
+void print_add_xyz(int, int);
+
+#define RANDOM_NUMBER 1834
 #include <math.h>
-
-#define HRNG 1834 // Human Random Number Generator value
-#define PrintParameterValue(x, y, z) printf("%d + %d + %d = [%d]\n", (x), (y), (z), (x) + (y) + (z))
+#include <stdio.h>
 
 typedef enum boolean {
 	FALSE,
@@ -15,11 +16,6 @@ typedef struct point {
 	int axis_x;
 	int axis_y;
 } TwoDimension;
-
-// Prints out the expression & the value of the expression:
-//// 1) Uses printf()
-//// 2) Uses PrintParamenterValue().
-void print_test(int, int);
 
 main() {
 	int *y, z;
@@ -40,10 +36,10 @@ main() {
 	// }}}
 
 	// Print x + y + z, where x is an external variable
-	print_test(*y, z);
+	print_add_xyz(*y, z);
 
 	// Print the result of an arbitrary, complex expression
-	printf("%f\n", 3 + 4 * sin(fabs(HRNG)) * (log(10) / pow(2, 3)));
+	printf("%f\n", 3 + 4 * sin(fabs(RANDOM_NUMBER)) * (log(10) / pow(2, 3)));
 
 	// Does--or doesn't--print, depending on the default value
 	Boolean truth_value;
@@ -58,9 +54,15 @@ main() {
 
 	return 0;
 }
+// }}}
 
-int x = 1; // The first integer to add in the print_test function.
-void print_test(int y, int z) {
+// print_add_xyz() {{{
+int x = 1;
+
+#define PrintAddXYZ(x, y, z) printf("%d + %d + %d = [%d]\n", (x), (y), (z), (x) + (y) + (z))
+
+void print_add_xyz(int y, int z) {
 	printf("%d + %d + %d = [%d]\n", x, y, z, x + y + z);
-	PrintParameterValue(x, y, z);
+	PrintAddXYZ(x, y, z);
 }
+// }}}

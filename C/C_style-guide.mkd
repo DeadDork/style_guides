@@ -7,13 +7,14 @@ TL;DR
 Below is a simple program that demonstrates my C style (for more detail, read the rest of the guide):
 
 ```c
-// This is a simple C program that demonstrates my preferred C coding style.
+// This is a simple--and ugly--C program that demonstrates my preferred C coding style.
 
-#include <stdio.h>
+// main() {{{
+void print_add_xyz(int, int);
+
+#define RANDOM_NUMBER 1834
 #include <math.h>
-
-#define HRNG 1834 // Human Random Number Generator value
-#define PrintParameterValue(x, y, z) printf("%d + %d + %d = [%d]\n", (x), (y), (z), (x) + (y) + (z))
+#include <stdio.h>
 
 typedef enum boolean {
 	FALSE,
@@ -24,11 +25,6 @@ typedef struct point {
 	int axis_x;
 	int axis_y;
 } TwoDimension;
-
-// Prints out the expression & the value of the expression:
-//// 1) Uses printf()
-//// 2) Uses PrintParamenterValue().
-void print_test(int, int);
 
 main() {
 	int *y, z;
@@ -49,10 +45,10 @@ main() {
 	// }}}
 
 	// Print x + y + z, where x is an external variable
-	print_test(*y, z);
+	print_add_xyz(*y, z);
 
 	// Print the result of an arbitrary, complex expression
-	printf("%f\n", 3 + 4 * sin(fabs(HRNG)) * (log(10) / pow(2, 3)));
+	printf("%f\n", 3 + 4 * sin(fabs(RANDOM_NUMBER)) * (log(10) / pow(2, 3)));
 
 	// Does--or doesn't--print, depending on the default value
 	Boolean truth_value;
@@ -67,12 +63,18 @@ main() {
 
 	return 0;
 }
+// }}}
 
-int x = 1; // The first integer to add in the print_test function.
-void print_test(int y, int z) {
+// print_add_xyz() {{{
+int x = 1;
+
+#define PrintAddXYZ(x, y, z) printf("%d + %d + %d = [%d]\n", (x), (y), (z), (x) + (y) + (z))
+
+void print_add_xyz(int y, int z) {
 	printf("%d + %d + %d = [%d]\n", x, y, z, x + y + z);
-	PrintParameterValue(x, y, z);
+	PrintAddXYZ(x, y, z);
 }
+// }}}
 ```
 
 Variables & Arrays
@@ -84,7 +86,7 @@ Variables & Arrays
 	char string[] = "Hello";
 	```
 
-*	Pointers follow convention, i.e.
+*	Pointers follow the K & R convention, i.e.
 
 	```c
 	type *variable;
@@ -96,7 +98,7 @@ Variables & Arrays
 	char *character;
 	```
 
-	(This form can be confusing given that a declaration of a pointer uses a `\*` as well as the unary operator dereferencing a pointer. This confusion can be cleared up if one thinks of the declaration as being to a generic pointer that if dereferenced accesses an object of the type in the declaration.)
+	(This form can be confusing given that a declaration of a pointer uses a `\*` as well as the unary operator dereferencing a pointer. This confusion can be cleared up if one thinks of the declaration as being to a void pointer that if dereferenced accesses an object of the type in the declaration.)
 
 *	Variables & arrays should be named well. A good name is worth 10x its length in good documentation, e.g.
 
@@ -115,9 +117,9 @@ Variables & Arrays
 	int line, line_count, line_count_max = 17;
 	```
 
-*	Don't abbreviate names.
+*	Don't abbreviate names. This leads to stupid bugs a spell check could easily prevent.
 
-	The exception to this are math variables. Oftentimes math functions can be so abstract no good descriptive name can be used, in which case a letter will do, e.g.
+	The exception to this are math variables. They are often so abstract no good descriptive name can be used, in which case a letter will do, e.g.
 
 	```c
 	int x, y;
@@ -178,8 +180,13 @@ Functions
 *	Functions should follow the same naming rules as variables, e.g.
 
 	```c
-	// Adds two floats together.
 	float add_float(float, float);
+	```
+
+*	Function prototype parameters are given only their type, e.g.
+
+	```c
+	char *string_sort(char *[], int, int);
 	```
 
 *	All function aguments are tightly bound to the function name. This way, complex expressions containing functions with return values are easier to parse. Moreover, you get fewer style errors due to forgotten spaces, e.g.
@@ -251,16 +258,13 @@ Control Functions
 Comments
 --------
 
-*	A comment section should always be affixed to the head of a file. This way, a change history can be easily catalogued, and so on.
+*	Comments go at the head of a file. This way, a change history can be easily catalogued, and so on.
 
 *	Do not exceed more than 80 characters per line. Most screens can handle that length, but any longer, and you start getting really obnoxious pseudo-linebreaks.
 
 *	Separate comments by at least one line break. If they are sufficiently decoupled, two. Both should be commented out with a `//`.
 
 	```C
-	////////////////////////////////////////////////////////////////////////////////
-	// Comments
-
 	// This is a dummy comment section.
 	// I feel like a dummy...
 
@@ -276,7 +280,6 @@ Comments
 *	For overlong, single line comments, break the comment into multiple lines so that they fit within the 80 spaces. Each line after the first gets indented same as the first, then filled with spaces so that the `//` line up. E.G.
 
 	```c
-	////////////////////////////////////////////////////////////////////////////////
 	main() {
 		int e; // Element
 
@@ -312,7 +315,7 @@ Comments
 Organization
 ------------
 
-*	C's top-to-bottom compilation encourages an organic programming style, so strict programming organization gets in the way of good programming. That said, as programs grow, they should be library-fied. As such, for potentially large projects, it is good pratice to put header-y code at the top of the file. I've found the following header organization is best, as 
+*	C's top-to-bottom compilation encourages an organic programming style, so strict programming organization gets in the way of good programming. That said, as programs grow, they should be library-fied. As such, for potentially large projects, it is good pratice to put header-y code at the top of the file. I've found the following header organization is best:
 	1.	Comments
 	2.	`#include`'s
 	3.	`#define`'s
@@ -322,14 +325,39 @@ Organization
 
 	This makes it much easier to library-fy an unwieldy source file, while also allowing pre-processing to do its magic without silly bugs. Further, in order to encourage clean code, I decided to stop labeling sections. The idea is that the sections should scream what they are, so labeling is not necessary. 
 
-	That said, for small projects that will never exceed a couple of hundred of lines of code, I strongly believe that the natural scoping and typing issues of the program should dictate its organization. This makes it much, much easier to program, e.g.
+	That said, for small projects that will never exceed a couple of hundred of lines of code, I strongly believe that the natural scoping and typing issues of the program should dictate its organization. This makes it much, much easier to program. For these shorter programs, I like to:
+	1.	Encapsulate functions with comment brackets.
+	2.	Organize pre-processing, typedef declarations, function prototypes, etc. so that they are declared ahead of the function, and in the order that they are processed inside the function (this makes coding functions much simpler: simply split the screen [in emacs or vim], and code top-to-bottom in the "header" part and the function part).
+
+	For example,
 
 	```c
-	#include <stdlib.h>
-	typedef enum bool { FALSE, TRUE } Bool;
+	// main() {{{
+	typedef enum bool {
+		FALSE,
+		TRUE
+	} Bool;
+
 	Bool random_truth_value_generator(void);
+
+	#include <stdio.h>
+
+	main() {
+		if (random_truth_value_generator())
+			printf("It's true!");
+		else
+			printf("It's false!");
+
+		return 0;
+	}
+	// }}}
+
+	// random_truth_value_generator() {{{
+	#include <stdlib.h>
+
 	Bool random_truth_value_generator() {
 		srandomdev();
 		return (random() % 10 < 5) ? TRUE : FALSE;
 	}
+	// }}}
 	```
