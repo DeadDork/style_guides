@@ -3,7 +3,13 @@ CFLAGS = -Wall -Wextra -g
 CCFLAGS = 
 LDFLAGS =
 
-BIN = test
+BIN = test1
+OBJ = $(BIN).o
+$(BIN) : $(OBJ)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+$(OBJ).o : $(OBJ).c
+
+BIN = test2
 OBJ = $(BIN).o
 $(BIN) : $(OBJ)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
@@ -11,4 +17,4 @@ $(OBJ).o : $(OBJ).c
 
 .PHONY : clean
 clean :
-	rm *.o $(BIN)
+	rm *.o test[12]

@@ -1,5 +1,5 @@
 *.sw[op]
 *~
 *.dSYM
-test
+test[1-9]
 *.o
