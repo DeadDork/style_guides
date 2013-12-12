@@ -332,6 +332,7 @@ Organization
 *	That said, for small projects that will never exceed a couple of hundred of lines of code, I strongly believe that the natural scoping and typing issues of the program should dictate its organization. This makes it much, much easier to program. For these shorter programs, I like to:
 	1.	Encapsulate functions with comment brackets.
 	2.	Organize pre-processing, typedef declarations, function prototypes, etc. so that they are declared ahead of the function, and in the order that they are processed inside the function (this makes coding functions much simpler: simply split the screen [in emacs or vim], and code top-to-bottom in the "header" part and the function part as you go along).
+	3.	Pre-processing, etc. that affects more than one function should be declared above both functions. However, if the pre-processing, etc. is shared in many places in the program, it is easier to simply create a `Universal` comment encapsulation.
 
 	For example,
 
