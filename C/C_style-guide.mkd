@@ -9,12 +9,14 @@ Below is a simple program that demonstrates my C style (for more detail, read th
 ```c
 // This is a simple--and ugly--C program that demonstrates my preferred C coding style.
 
-// main() {{{
-void print_add_xyz(int, int);
+// Universal {{{
+#include <stdio.h>
+// Universal }}}
+
+// Main {{{
+#include <math.h>
 
 #define RANDOM_NUMBER 1834
-#include <math.h>
-#include <stdio.h>
 
 typedef enum boolean {
 	FALSE,
@@ -26,17 +28,19 @@ typedef struct point {
 	int axis_y;
 } TwoDimension;
 
-main() {
+void print_add_xyz(int, int);
+
+int main() {
 	int *y, z;
 
 	// Sets y & z {{{
 	// Set y
-	for (*y = 0; *y < 9; ++(*y));
+	for (*y = 0; *y < 9; ++*y);
 
 	// Set z
 	while (z != 90) {
 		if (z < 80)
-			z = z + 10;
+			z += 10;
 		else if (z >= 80)
 			++z;
 		else if (z > 90)
@@ -63,18 +67,18 @@ main() {
 
 	return 0;
 }
-// }}}
+// Main }}}
 
 // print_add_xyz() {{{
 int x = 1;
 
-#define PrintAddXYZ(x, y, z) printf("%d + %d + %d = [%d]\n", (x), (y), (z), (x) + (y) + (z))
+#define PrintAddXYZ(x, y, z) printf(#x " + " #y " + " #z " = [%d]\n", (x) + (y) + (z))
 
 void print_add_xyz(int y, int z) {
 	printf("%d + %d + %d = [%d]\n", x, y, z, x + y + z);
 	PrintAddXYZ(x, y, z);
 }
-// }}}
+// print_add_xyz() }}}
 ```
 
 Variables & Arrays
@@ -98,7 +102,7 @@ Variables & Arrays
 	char *character;
 	```
 
-	(This form can be confusing given that a declaration of a pointer uses a `\*` as well as the unary operator dereferencing a pointer. This confusion can be cleared up if one thinks of the declaration as being to a void pointer that if dereferenced accesses an object of the type in the declaration.)
+	(This form can be confusing given that a declaration of a pointer uses a `*` as well as the unary operator dereferencing a pointer. This confusion can be cleared up if one thinks of the declaration as being to a void pointer that if dereferenced accesses an object of the type in the declaration.)
 
 *	Variables & arrays should be named well. A good name is worth 10x its length in good documentation, e.g.
 
@@ -111,7 +115,7 @@ Variables & Arrays
 	string[element] = '\0';
 	```
 
-*	A name is a category, and complex names can be created by affixing more categories with an `\_`. The idea is to move from general to specific, e.g.
+*	A name is a category, and complex names can be created by affixing more categories with an `_`. The idea is to move from general to specific, e.g.
 
 	```c
 	int line, line_count, line_count_max = 17;
@@ -164,7 +168,7 @@ Symbolic Constants
 Macros
 ------
 
-*	Macro names follow the same rules used for variable names, with the exceptions that the first letter of descriptive words in the name is capitalized and no `\_` is used, e.g.
+*	Macro names follow the same rules used for variable names, with the exceptions that the first letter of descriptive words in the name is capitalized and no `_` is used, e.g.
 
 	```c
 	#define GenericSwap(type, source, target) {\
@@ -332,21 +336,23 @@ Organization
 	For example,
 
 	```c
-	// main() {{{
+	// Universal {{{
 	typedef enum bool {
 		FALSE,
 		TRUE
 	} Bool;
+	// Universal }}}
+
+	// Main {{{
+	#include <stdio.h>
 
 	Bool random_truth_value_generator(void);
 
-	#include <stdio.h>
-
-	main() {
+	int main() {
 		if (random_truth_value_generator())
-			printf("It's true!");
+			printf("It's true!\n");
 		else
-			printf("It's false!");
+			printf("It's false!\n");
 
 		return 0;
 	}
@@ -357,7 +363,7 @@ Organization
 
 	Bool random_truth_value_generator() {
 		srandomdev();
-		return (random() % 10 < 5) ? TRUE : FALSE;
+		return (random() % 2 == 1) ? TRUE : FALSE;
 	}
 	// }}}
 	```

@@ -1,11 +1,13 @@
 // This is a simple--and ugly--C program that demonstrates my preferred C coding style.
 
-// main() {{{
-void print_add_xyz(int, int);
+// Universal {{{
+#include <stdio.h>
+// Universal }}}
+
+// Main {{{
+#include <math.h>
 
 #define RANDOM_NUMBER 1834
-#include <math.h>
-#include <stdio.h>
 
 typedef enum boolean {
 	FALSE,
@@ -17,17 +19,19 @@ typedef struct point {
 	int axis_y;
 } TwoDimension;
 
-main() {
+void print_add_xyz(int, int);
+
+int main() {
 	int *y, z;
 
 	// Sets y & z {{{
 	// Set y
-	for (*y = 0; *y < 9; ++(*y));
+	for (*y = 0; *y < 9; ++*y);
 
 	// Set z
 	while (z != 90) {
 		if (z < 80)
-			z = z + 10;
+			z += 10;
 		else if (z >= 80)
 			++z;
 		else if (z > 90)
@@ -54,15 +58,15 @@ main() {
 
 	return 0;
 }
-// }}}
+// Main }}}
 
 // print_add_xyz() {{{
 int x = 1;
 
-#define PrintAddXYZ(x, y, z) printf("%d + %d + %d = [%d]\n", (x), (y), (z), (x) + (y) + (z))
+#define PrintAddXYZ(x, y, z) printf(#x " + " #y " + " #z " = [%d]\n", (x) + (y) + (z))
 
 void print_add_xyz(int y, int z) {
 	printf("%d + %d + %d = [%d]\n", x, y, z, x + y + z);
 	PrintAddXYZ(x, y, z);
 }
-// }}}
+// print_add_xyz() }}}
