@@ -18,7 +18,7 @@ int main() {
 
 	return 0;
 }
-// }}}
+// Main }}}
 
 // random_truth_value_generator() {{{
 #include <stdlib.h>
@@ -27,4 +27,4 @@ Bool random_truth_value_generator() {
 	srandomdev();
 	return (random() % 2 == 1) ? TRUE : FALSE;
 }
-// }}}
+// random_truth_value_generator() }}}
